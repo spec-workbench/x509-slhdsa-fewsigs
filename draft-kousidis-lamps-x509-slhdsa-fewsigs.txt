@@ -2,14 +2,16 @@
 
 
 
-WG Working Group                                              Y. N. Here
-Internet-Draft                                    Your Organization Here
-Intended status: Informational                           2 November 2026
+LAMPS Working Group                                          S. Kousidis
+Internet-Draft                                                   TH Köln
+Updates: 9909 (if approved)                              2 November 2026
+Intended status: Standards Track                                        
 Expires: 6 May 2027
 
 
-                           TODO - Your title
-                  draft-todo-yourname-protocol-latest
+Internet X.509 Public Key Infrastructure: Algorithm Identifiers for SLH-
+         DSA Parameter Sets with a Reduced Number of Signatures
+            draft-kousidis-lamps-x509-slhdsa-fewsigs-latest
 
 Abstract
 
@@ -19,17 +21,19 @@ About This Document
 
    This note is to be removed before publishing as an RFC.
 
-   The latest revision of this draft can be found at
-   https://example.com/LATEST.  Status information for this document may
-   be found at https://datatracker.ietf.org/doc/draft-todo-yourname-
-   protocol/.
+   The latest revision of this draft can be found at https://spec-
+   workbench.github.io/x509-slhdsa-fewsigs/draft-kousidis-lamps-x509-
+   slhdsa-fewsigs.html.  Status information for this document may be
+   found at https://datatracker.ietf.org/doc/draft-kousidis-lamps-x509-
+   slhdsa-fewsigs/.
 
-   Discussion of this document takes place on the WG Working Group
-   mailing list (mailto:WG@example.com), which is archived at
-   https://example.com/WG.
+   Discussion of this document takes place on the LAMPS Working Group
+   mailing list (mailto:spasm@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/spasm/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/spasm/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/USER/REPO.
+   https://github.com/spec-workbench/x509-slhdsa-fewsigs.
 
 Status of This Memo
 
@@ -103,12 +107,19 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC9909]  Bashiri, K., Fluhrer, S., Gazdag, S., Van Geest, D., and
+              S. Kousidis, "Internet X.509 Public Key Infrastructure --
+              Algorithm Identifiers for the Stateless Hash-Based Digital
+              Signature Algorithm (SLH-DSA)", RFC 9909,
+              DOI 10.17487/RFC9909, December 2025,
+              <https://www.rfc-editor.org/rfc/rfc9909>.
+
 Acknowledgments
 
    TODO acknowledge.
 
 Author's Address
 
-   Your Name Here
-   Your Organization Here
-   Email: your.email@example.com
+   Stavros Kousidis
+   TH Köln
+   Email: stavros.kousidis@th-koeln.de
