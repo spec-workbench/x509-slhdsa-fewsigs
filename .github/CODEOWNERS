@@ -1,3 +1,2 @@
-# Automatically generated CODEOWNERS
-# Regenerate with `make update-codeowners`
-draft-kousidis-lamps-x509-slhdsa-fewsigs.md stavros.kousidis@th-koeln.de
+# Editors review all changes.
+*  @spec-workbench/slhdsa-fewsigs-editors
