@@ -10,20 +10,20 @@ number:
 date:
 consensus: true
 v: 3
-area: SEC
-workgroup: LAMPS Working Group
+area: "Security"
+workgroup: "Limited Additional Mechanisms for PKIX and SMIME"
 keyword:
  - SLH-DSA
  - SP 800-230
  - X.509
  - post-quantum
 venue:
-  group: LAMPS
-  type: Working Group
-  mail: spasm@ietf.org
-  arch: https://mailarchive.ietf.org/arch/browse/spasm/
-  github: spec-workbench/x509-slhdsa-fewsigs
-  latest: https://spec-workbench.github.io/x509-slhdsa-fewsigs/draft-kousidis-lamps-x509-slhdsa-fewsigs.html
+  group: "Limited Additional Mechanisms for PKIX and SMIME"
+  type: "Working Group"
+  mail: "spasm@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/spasm/"
+  github: "spec-workbench/x509-slhdsa-fewsigs"
+  latest: "https://spec-workbench.github.io/x509-slhdsa-fewsigs/draft-kousidis-lamps-x509-slhdsa-fewsigs.html"
 
 author:
  -
