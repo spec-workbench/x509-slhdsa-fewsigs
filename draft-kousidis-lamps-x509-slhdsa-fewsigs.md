@@ -202,7 +202,7 @@ The object identifiers for the SLH-DSA-FEW parameter sets are to be
 defined by NIST in the Computer Security Objects Register {{CSOR}}. The
 same algorithm identifiers are used for identifying a public key, a
 private key, and a signature. As in {{RFC9909}}, there are separate
-identifiers for Pure SLH-DSA and HashSLH-DSA.
+identifiers for Pure SLH-DSA-FEW and HashSLH-DSA-FEW.
 
 The Pure SLH-DSA-FEW OIDs are:
 
