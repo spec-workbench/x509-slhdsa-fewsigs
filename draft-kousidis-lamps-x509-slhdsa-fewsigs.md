@@ -182,7 +182,7 @@ EDITOR'S NOTE: Open issues for this version:
 id-slh-dsa-*-24: A shorthand to refer to all six OIDs used to specify the
 different parameter combinations for Pure SLH-DSA-FEW.
 
-id-hash-slh-dsa-*-24-*: A shorthand to refer to all six OIDs used to
+`id-hash-slh-dsa-*-24-*`: A shorthand to refer to all six OIDs used to
 specify the different parameter combinations for HashSLH-DSA-FEW.
 
 # Conventions and Definitions
