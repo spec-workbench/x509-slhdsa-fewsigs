@@ -319,7 +319,7 @@ include:
 * using separate keys, such as a dedicated CRL signing key or a
   delegated OCSP responder key, for high-volume or automated signing
   operations;
-* limiting what the key can be used for, for example with the keyUsage 
+* limiting what the key can be used for, for example with the keyUsage
   extension.
   
 
