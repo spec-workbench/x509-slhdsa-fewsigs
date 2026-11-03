@@ -321,7 +321,6 @@ include:
   operations;
 * limiting what the key can be used for, for example with the keyUsage
   extension.
-  
 
 Although SLH-DSA is a stateless scheme, an operator using SLH-DSA-FEW
 needs a reliable signature count to stay within the limit. A
