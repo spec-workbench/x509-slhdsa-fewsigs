@@ -312,8 +312,10 @@ include:
   replicas holding the same key, and refusing to sign or destroying the
   private key before the limit is reached;
 * not sharing a private key between many signing devices;
-* setting the "Not After" (expiration) date of the certificate such that
-  the limit cannot be exceeded at the maximum possible rate of signing;
+* setting the certificate's "Not After" (expiration) date based on the
+  remaining signature budget and the maximum aggregate signing rate
+  across all copies of the key, and permanently disabling or destroying
+  every private-key copy by that date;
   and
 * using separate keys, such as a dedicated CRL signing key or a
   delegated OCSP responder key, for high-volume or automated signing
