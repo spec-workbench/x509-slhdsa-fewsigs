@@ -141,8 +141,8 @@ by limiting a signing key to 2^24 (16,777,216) signatures; see {{KP22}}
 and {{FD24}} for background. The resulting signatures are 3,856, 7,752,
 and 14,944 bytes long, while signing is slower than with the parameter
 sets of {{FIPS205}}. If a key is used to generate more than 2^24
-signatures, its security degrades below the security category of its
-parameter set, and degrades further with every additional signature.
+signatures, its security is no longer guaranteed to meet the security
+category of its parameter set.
 {{SP800-230}} names signing of software, firmware, and
 digital certificates as the intended use cases, and states that these
 parameter sets are not approved for general-purpose use.
@@ -179,7 +179,7 @@ EDITOR'S NOTE: Open issues for this version:
 
 ## Notation
 
-id-slh-dsa-*-24: A shorthand to refer to all six OIDs used to specify the
+`id-slh-dsa-*-24`: A shorthand to refer to all six OIDs used to specify the
 different parameter combinations for Pure SLH-DSA-FEW.
 
 `id-hash-slh-dsa-*-24-*`: A shorthand to refer to all six OIDs used to
@@ -266,9 +266,9 @@ absent.
 
 # Use in X.509 {#sec-use}
 
-The following sections of {{RFC9909}} apply to the id-slh-dsa-*-24 and
-id-hash-slh-dsa-*-24-* object identifiers in the same way as to the
-id-slh-dsa-* and id-hash-slh-dsa-* object identifiers, respectively,
+The following sections of {{RFC9909}} apply to the `id-slh-dsa-*-24` and
+`id-hash-slh-dsa-*-24-*` object identifiers in the same way as to the
+`id-slh-dsa-*` and `id-hash-slh-dsa-*` object identifiers, respectively,
 with the sizes in {{tab-strengths}}:
 
 * SLH-DSA Signatures ({{Section 4 of RFC9909}}). Signatures are generated
@@ -278,11 +278,11 @@ with the sizes in {{tab-strengths}}:
   R \|\| SIG_FORS \|\| SIG_HT.
 * Subject Public Key Fields ({{Section 5 of RFC9909}}). The
   AlgorithmIdentifier for an SLH-DSA-FEW public key MUST use one of the
-  id-slh-dsa-*-24 or id-hash-slh-dsa-*-24-* object identifiers from
+  `id-slh-dsa-*-24` or `id-hash-slh-dsa-*-24-*` object identifiers from
   {{sec-alg-ids}}, and its parameters field MUST be absent. The public key
   identifiers are defined in {{sec-asn1}}.
 * Key Usage Bits ({{Section 6 of RFC9909}}). The requirements apply to
-  certificates that indicate an id-slh-dsa-*-24 or id-hash-slh-dsa-*-24-*
+  certificates that indicate an `id-slh-dsa-*-24` or `id-hash-slh-dsa-*-24-*`
   identifier in the SubjectPublicKeyInfo.
 * Private Key Format ({{Section 7 of RFC9909}}). The private key is the
   concatenation SK.seed \|\| SK.prf \|\| PK.seed \|\| PK.root of length
