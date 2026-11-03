@@ -1,0 +1,88 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2026-11-03T05:55:26.117114+00:00",
+  "repo": "spec-workbench/x509-slhdsa-fewsigs",
+  "labels": [
+    {
+      "name": "accessibility",
+      "description": "Barrier affecting people with disabilities",
+      "color": "f143ab"
+    },
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOVgM2N88AAAABMVLksA",
+      "title": "Initial content: SLH-DSA-FEW (SP 800-230) for X.509",
+      "url": "https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "fluppe2"
+      ],
+      "labels": [],
+      "body": "First full draft text, merging two sources:\n\n- RFC 9909 (FelixKnopp/x509-slhdsa@b3b216f) as the base\n- Felix's draft on branch `add-slh-dsa-24-parameter-sets` (FelixKnopp/x509-slhdsa@811cd19)\n\n## Contents\n- Pure and HashSLH-DSA-FEW OIDs (`TBD1`\u2013`TBD12`, to be assigned by NIST), in SP 800-230 order\n- \"Use in X.509\" section referring to RFC 9909 Sections 4\u20137\n- Operational and security considerations for the 2^24 signature limit: signature counting across HSMs/replicas, CA/CRL/OCSP, keys that sign on demand (TLS, OCSP) SHOULD use FIPS 205 parameter sets\n- Complete ASN.1 module (`asn1/X509-SLHDSA-FEW-2026.asn`) including `SignatureAlgorithms`, `SMimeCaps`, `PublicKeyAlgorithms`; module OID requested in the SMI PKIX module registry\n- Authors: Kaveh Bashiri, Felix Knopp, Stavros Kousidis\n- `CODEOWNERS` for `@spec-workbench/slhdsa-fewsigs-editors`, placeholder `examples/`\n\n## Changes compared to Felix's branch, please review\n- Removed the claim that security \"does not degrade gradually\" beyond the limit; replaced it with \"no longer guaranteed\" plus an editor's note. Please check against KP22 / SP 800-230.\n- Reworded \"signatures generated beyond the limit are indistinguishable from valid ones\" to refer to forgeries.\n- Fixed the ASN.1 module (`# Todo` line, module OID arc, missing `SignatureAlgorithms`/`SMimeCaps` sets, set name `PublicKeyAlgorithms`).\n- IANA: standard request in \"SMI Security for PKIX Module Identifier\" instead of \"to be determined\".\n\n## Open issues (editor's notes in the draft)\n- OIDs from NIST CSOR\n- Re-check against the final SP 800-230\n- HashSLH-DSA-FEW: needed? NIST OIDs?\n- CMS in this document or a separate one?\n\nBuilds cleanly; `make idnits` shows no errors (remaining warnings: RFC 5912 downref, which is in the downref registry, and `<CODE BEGINS>`, both as in RFC 9909).\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.com/claude-code)",
+      "createdAt": "2026-11-02T15:04:48Z",
+      "updatedAt": "2026-11-02T15:25:21Z",
+      "baseRepository": "spec-workbench/x509-slhdsa-fewsigs",
+      "baseRefName": "main",
+      "baseRefOid": "1df633e7d71ef18928eacf616c4fe97af26a12ca",
+      "headRepository": "spec-workbench/x509-slhdsa-fewsigs",
+      "headRefName": "initial-content",
+      "headRefOid": "b30bfa2b41b55d234beae9490041d79dbd9d866a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
