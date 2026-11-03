@@ -34,7 +34,7 @@ author:
  -
     fullname: Felix Knopp
     organization: BSI
-    email: felix.developer.acc@gmail.com
+    email: felix.knopp.ietf@proton.me
  -
     fullname: Stavros Kousidis
     organization: TH Köln
