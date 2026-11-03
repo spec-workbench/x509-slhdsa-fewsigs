@@ -318,15 +318,14 @@ Table of Contents
    [FIPS205] only.  A key pair for an SLH-DSA-FEW parameter set MUST NOT
    be used for more than 2^24 signing operations.
 
-   Beyond 2^24 signatures, the security of the key degrades below the
-   security category listed in Table 1, and degrades further with every
-   additional signature.  A relying party cannot detect that the limit
-   has been exceeded: neither a certificate nor a signature reveals how
-   many signatures have been generated with a key, and a forgery made
-   possible by exceeding the limit is indistinguishable from a genuine
-   signature.  Therefore, before using SLH-DSA-FEW, the operator MUST
-   evaluate the operational environment of each signing key, taking into
-   account at least:
+   Beyond 2^24 signatures, the security of the key is no longer
+   guaranteed to meet the security category listed in Table 1.  A
+   relying party cannot detect that the limit has been exceeded: neither
+   a certificate nor a signature reveals how many signatures have been
+   generated with a key, and a forgery made possible by exceeding the
+   limit is indistinguishable from a genuine signature.  Therefore,
+   before using SLH-DSA-FEW, the operator MUST evaluate the operational
+   environment of each signing key, taking into account at least:
 
    *  the number of physical or virtual devices that share the signing
       key,

@@ -1489,9 +1489,9 @@ below.<a href="#section-6-1" class="pilcrow">¶</a></p>
 2^64 signing operations. This applies to the parameter sets of
 <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span> only. A key pair for an SLH-DSA-FEW parameter set <span class="bcp14">MUST NOT</span>
 be used for more than 2^24 signing operations.<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">Beyond 2^24 signatures, the security of the key degrades below the
-security category listed in <a href="#tab-strengths" class="auto internal xref">Table 1</a>, and degrades further with
-every additional signature. A relying party cannot detect that the limit
+<p id="section-6-3">Beyond 2^24 signatures, the security of the key is no longer guaranteed
+to meet the security category listed in <a href="#tab-strengths" class="auto internal xref">Table 1</a>. A relying party
+cannot detect that the limit
 has been exceeded: neither a certificate nor a signature reveals how many
 signatures have been generated with a key, and a forgery made possible
 by exceeding the limit is indistinguishable from a genuine signature.
