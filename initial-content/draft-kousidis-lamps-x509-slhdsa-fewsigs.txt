@@ -6,8 +6,8 @@ Limited Additional Mechanisms for PKIX and SMIME              K. Bashiri
 Internet-Draft                                                  F. Knopp
 Updates: 9909 (if approved)                                          BSI
 Intended status: Standards Track                             S. Kousidis
-Expires: 6 May 2027                                              TH Köln
-                                                         2 November 2026
+Expires: 7 May 2027                                              TH Köln
+                                                         3 November 2026
 
 
 Internet X.509 Public Key Infrastructure: Algorithm Identifiers for SLH-
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 May 2027.
+   This Internet-Draft will expire on 7 May 2027.
 
 Copyright Notice
 
@@ -288,9 +288,10 @@ Table of Contents
 
    *  not sharing a private key between many signing devices;
 
-   *  setting the "Not After" (expiration) date of the certificate such
-      that the limit cannot be exceeded at the maximum possible rate of
-      signing; and
+   *  setting the certificate's "Not After" (expiration) date based on
+      the remaining signature budget and the maximum aggregate signing
+      rate across all copies of the key, and permanently disabling or
+      destroying every private-key copy by that date; and
 
    *  using separate keys, such as a dedicated CRL signing key or a
       delegated OCSP responder key, for high-volume or automated signing
