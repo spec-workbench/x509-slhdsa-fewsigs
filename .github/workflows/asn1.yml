@@ -1,0 +1,20 @@
+name: "ASN.1 Module"
+
+on:
+  push:
+    paths:
+    - "asn1/**"
+  pull_request:
+    paths:
+    - "asn1/**"
+
+jobs:
+  check:
+    name: "Check generated ASN.1 module"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout"
+      uses: actions/checkout@v4
+
+    - name: "Module matches asn1/gen.py"
+      run: python3 asn1/gen.py --check
