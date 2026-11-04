@@ -354,6 +354,7 @@ Therefore, before using SLH-DSA-FEW, the operator MUST evaluate the
 operational environment of each signing key, taking into account at
 least:
 
+* the intended numbers of signatures signed with the signing key,
 * the number of physical or virtual devices that share the signing key,
 * the maximum possible speed of each signing operation,
 * the projected frequency of signature generation across all devices,
