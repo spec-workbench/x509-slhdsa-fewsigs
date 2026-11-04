@@ -106,13 +106,13 @@ Table of Contents
    categories 1, 3, and 5 that reduce signature size and verification
    time by limiting a signing key to 2^24 (16,777,216) signatures; see
    [KP22] and [FD24] for background.  The resulting signatures are
-   3,856, 7,752, and 14,944 bytes long, while signing is slower than
-   with the parameter sets of [FIPS205].  If a key is used to generate
-   more than 2^24 signatures, its security is no longer guaranteed to
-   meet the security category of its parameter set.  [SP800-230] names
-   signing of software, firmware, and digital certificates as the
-   intended use cases, and states that these parameter sets are not
-   approved for general-purpose use.
+   3,856, 7,752, and 14,944 bytes long, while signing is less efficient
+   than with the parameter sets of [FIPS205].  If a key is used to
+   generate more than 2^24 signatures, its security is no longer
+   guaranteed to meet the security category of its parameter set.
+   [SP800-230] names signing of software, firmware, and digital
+   certificates as the intended use cases, and states that these
+   parameter sets are not approved for general-purpose use.
 
    This document refers to these additional parameter sets as SLH-DSA-
    FEW.  The corresponding pure version is referred to as Pure SLH-DSA-
