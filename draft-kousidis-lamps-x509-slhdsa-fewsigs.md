@@ -330,7 +330,7 @@ cause the limit to be exceeded unnoticed.
 SLH-DSA-FEW is not suited for keys that sign on demand in response to
 external requests, such as keys used for authentication in interactive
 protocols (for example, in TLS handshakes) or OCSP responder keys, unless
-the number of signatures can be bounded reliably. Such keys SHOULD use
+the number of signatures can be bounded reliably. Such keys MUST use
 the parameter sets of {{FIPS205}}.
 
 
