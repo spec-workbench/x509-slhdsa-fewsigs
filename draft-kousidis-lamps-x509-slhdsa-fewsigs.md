@@ -376,8 +376,7 @@ volume.
 
 According to {{SP800-230}}, caching parts of or the whole SLH-DSA
 hypertree to speed up signing is permitted and does not affect the
-security properties of the algorithm. Cached values are derived from the
-private key and need to be protected accordingly.
+security properties of the algorithm. Cached values need to be handled appropriately.
 
 <aside markdown="block">
 EDITOR'S NOTE: Consider quantifying how fast security degrades beyond
