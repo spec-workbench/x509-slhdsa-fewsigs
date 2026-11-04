@@ -119,7 +119,7 @@ informative:
 RFC 9909 specifies the conventions for using the Stateless Hash-Based
 Digital Signature Algorithm (SLH-DSA) in the X.509 Public Key
 Infrastructure. NIST SP 800-230 adds six SLH-DSA parameter sets that are
-restricted to at most 2^24 signatures per signing key. The security of these parameters depends entirely on adhering to this limit.
+restricted to at most 2^24 signatures per signing key. The security of these parameters depends on adhering to this limit.
 This document specifies the algorithm identifiers for these parameter
 sets in X.509 and updates RFC 9909 to address the much lower signature
 limit.
