@@ -139,7 +139,7 @@ per key, which is the reason for their large signatures of 7,856 to
 categories 1, 3, and 5 that reduce signature size and verification time
 by limiting a signing key to 2^24 (16,777,216) signatures; see {{KP22}}
 and {{FD24}} for background. The resulting signatures are 3,856, 7,752,
-and 14,944 bytes long, while signing is slower than with the parameter
+and 14,944 bytes long, while signing is less efficient than with the parameter
 sets of {{FIPS205}}. If a key is used to generate more than 2^24
 signatures, its security is no longer guaranteed to meet the security
 category of its parameter set.
