@@ -12,7 +12,7 @@
        RFC 9909 specifies the conventions for using the Stateless Hash-Based
 Digital Signature Algorithm (SLH-DSA) in the X.509 Public Key
 Infrastructure. NIST SP 800-230 adds six SLH-DSA parameter sets that are
-restricted to at most 2^24 signatures per signing key. The security of these parameters depends entirely on adhering to this limit.
+restricted to at most 2^24 signatures per signing key. The security of these parameters depends on adhering to this limit.
 This document specifies the algorithm identifiers for these parameter
 sets in X.509 and updates RFC 9909 to address the much lower signature
 limit. 
@@ -1057,7 +1057,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Bashiri, et al.</td>
-<td class="center">Expires 7 May 2027</td>
+<td class="center">Expires 8 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1073,12 +1073,12 @@ svg {
 <a href="https://www.rfc-editor.org/rfc/rfc9909" class="eref">9909</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-11-03" class="published">3 November 2026</time>
+<time datetime="2026-11-04" class="published">4 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-07">7 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-08">8 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1102,7 +1102,7 @@ svg {
 <p id="section-abstract-1">RFC 9909 specifies the conventions for using the Stateless Hash-Based
 Digital Signature Algorithm (SLH-DSA) in the X.509 Public Key
 Infrastructure. NIST SP 800-230 adds six SLH-DSA parameter sets that are
-restricted to at most 2^24 signatures per signing key. The security of these parameters depends entirely on adhering to this limit.
+restricted to at most 2^24 signatures per signing key. The security of these parameters depends on adhering to this limit.
 This document specifies the algorithm identifiers for these parameter
 sets in X.509 and updates RFC 9909 to address the much lower signature
 limit.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
@@ -1142,7 +1142,7 @@ limit.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1243,8 +1243,8 @@ by limiting a signing key to 2^24 (16,777,216) signatures; see <span>[<a href="#
 and <span>[<a href="#FD24" class="cite xref">FD24</a>]</span> for background. The resulting signatures are 3,856, 7,752,
 and 14,944 bytes long, while signing is slower than with the parameter
 sets of <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span>. If a key is used to generate more than 2^24
-signatures, its security degrades below the security category of its
-parameter set, and degrades further with every additional signature.
+signatures, its security is no longer guaranteed to meet the security
+category of its parameter set.
 <span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span> names signing of software, firmware, and
 digital certificates as the intended use cases, and states that these
 parameter sets are not approved for general-purpose use.<a href="#section-1-2" class="pilcrow">¶</a></p>
@@ -1298,7 +1298,7 @@ is to be discussed in the LAMPS Working Group.<a href="#section-1-6.2.4.1" class
         <h3 id="name-notation">
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-notation" class="section-name selfRef">Notation</a>
         </h3>
-<p id="section-1.1-1">id-slh-dsa-*-24: A shorthand to refer to all six OIDs used to specify the
+<p id="section-1.1-1"><code>id-slh-dsa-*-24</code>: A shorthand to refer to all six OIDs used to specify the
 different parameter combinations for Pure SLH-DSA-FEW.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 <p id="section-1.1-2"><code>id-hash-slh-dsa-*-24-*</code>: A shorthand to refer to all six OIDs used to
 specify the different parameter combinations for HashSLH-DSA-FEW.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
@@ -1394,9 +1394,9 @@ absent.<a href="#section-3-9" class="pilcrow">¶</a></p>
       <h2 id="name-use-in-x509">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-use-in-x509" class="section-name selfRef">Use in X.509</a>
       </h2>
-<p id="section-4-1">The following sections of <span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span> apply to the id-slh-dsa-<em>-24 and
-id-hash-slh-dsa-</em>-24-* object identifiers in the same way as to the
-id-slh-dsa-* and id-hash-slh-dsa-* object identifiers, respectively,
+<p id="section-4-1">The following sections of <span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span> apply to the <code>id-slh-dsa-*-24</code> and
+<code>id-hash-slh-dsa-*-24-*</code> object identifiers in the same way as to the
+<code>id-slh-dsa-*</code> and <code>id-hash-slh-dsa-*</code> object identifiers, respectively,
 with the sizes in <a href="#tab-strengths" class="auto internal xref">Table 1</a>:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-2.1">
@@ -1409,13 +1409,13 @@ R || SIG_FORS || SIG_HT.<a href="#section-4-2.1.1" class="pilcrow">¶</a></p>
         <li class="normal" id="section-4-2.2">
           <p id="section-4-2.2.1">Subject Public Key Fields (<span><a href="https://rfc-editor.org/rfc/rfc9909#section-5" class="relref">Section 5</a> of [<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>). The
 AlgorithmIdentifier for an SLH-DSA-FEW public key <span class="bcp14">MUST</span> use one of the
-id-slh-dsa-<em>-24 or id-hash-slh-dsa-</em>-24-* object identifiers from
+<code>id-slh-dsa-*-24</code> or <code>id-hash-slh-dsa-*-24-*</code> object identifiers from
 <a href="#sec-alg-ids" class="auto internal xref">Section 3</a>, and its parameters field <span class="bcp14">MUST</span> be absent. The public key
 identifiers are defined in <a href="#sec-asn1" class="auto internal xref">Appendix A</a>.<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-4-2.3">
           <p id="section-4-2.3.1">Key Usage Bits (<span><a href="https://rfc-editor.org/rfc/rfc9909#section-6" class="relref">Section 6</a> of [<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>). The requirements apply to
-certificates that indicate an id-slh-dsa-<em>-24 or id-hash-slh-dsa-</em>-24-*
+certificates that indicate an <code>id-slh-dsa-*-24</code> or <code>id-hash-slh-dsa-*-24-*</code>
 identifier in the SubjectPublicKeyInfo.<a href="#section-4-2.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-4-2.4">
