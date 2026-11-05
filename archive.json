@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-03T05:55:26.117114+00:00",
+  "timestamp": "2026-11-05T05:51:56.750288+00:00",
   "repo": "spec-workbench/x509-slhdsa-fewsigs",
   "labels": [
     {
@@ -70,19 +70,645 @@
       "labels": [],
       "body": "First full draft text, merging two sources:\n\n- RFC 9909 (FelixKnopp/x509-slhdsa@b3b216f) as the base\n- Felix's draft on branch `add-slh-dsa-24-parameter-sets` (FelixKnopp/x509-slhdsa@811cd19)\n\n## Contents\n- Pure and HashSLH-DSA-FEW OIDs (`TBD1`\u2013`TBD12`, to be assigned by NIST), in SP 800-230 order\n- \"Use in X.509\" section referring to RFC 9909 Sections 4\u20137\n- Operational and security considerations for the 2^24 signature limit: signature counting across HSMs/replicas, CA/CRL/OCSP, keys that sign on demand (TLS, OCSP) SHOULD use FIPS 205 parameter sets\n- Complete ASN.1 module (`asn1/X509-SLHDSA-FEW-2026.asn`) including `SignatureAlgorithms`, `SMimeCaps`, `PublicKeyAlgorithms`; module OID requested in the SMI PKIX module registry\n- Authors: Kaveh Bashiri, Felix Knopp, Stavros Kousidis\n- `CODEOWNERS` for `@spec-workbench/slhdsa-fewsigs-editors`, placeholder `examples/`\n\n## Changes compared to Felix's branch, please review\n- Removed the claim that security \"does not degrade gradually\" beyond the limit; replaced it with \"no longer guaranteed\" plus an editor's note. Please check against KP22 / SP 800-230.\n- Reworded \"signatures generated beyond the limit are indistinguishable from valid ones\" to refer to forgeries.\n- Fixed the ASN.1 module (`# Todo` line, module OID arc, missing `SignatureAlgorithms`/`SMimeCaps` sets, set name `PublicKeyAlgorithms`).\n- IANA: standard request in \"SMI Security for PKIX Module Identifier\" instead of \"to be determined\".\n\n## Open issues (editor's notes in the draft)\n- OIDs from NIST CSOR\n- Re-check against the final SP 800-230\n- HashSLH-DSA-FEW: needed? NIST OIDs?\n- CMS in this document or a separate one?\n\nBuilds cleanly; `make idnits` shows no errors (remaining warnings: RFC 5912 downref, which is in the downref registry, and `<CODE BEGINS>`, both as in RFC 9909).\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.com/claude-code)",
       "createdAt": "2026-11-02T15:04:48Z",
-      "updatedAt": "2026-11-02T15:25:21Z",
+      "updatedAt": "2026-11-04T16:25:11Z",
       "baseRepository": "spec-workbench/x509-slhdsa-fewsigs",
       "baseRefName": "main",
       "baseRefOid": "1df633e7d71ef18928eacf616c4fe97af26a12ca",
       "headRepository": "spec-workbench/x509-slhdsa-fewsigs",
       "headRefName": "initial-content",
-      "headRefOid": "b30bfa2b41b55d234beae9490041d79dbd9d866a",
+      "headRefOid": "3d23ffc7c650f4497ea1fdd9af00ca80643fcb08",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOVgM2N88AAAABVvxajg",
+          "commit": {
+            "abbreviatedOid": "b30bfa2"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udfe1 Changes recommended\n\nThe draft overstates security degradation and relies on certificate expiration to bound key use, while the generation workflow would overwrite the intended CODEOWNERS rule.\n\n<details open>\n<summary><strong>4 open issues</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Prevent generated-file updates from overwriting the team rule](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323242) \u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Base key retirement on signature budget and enforce it for every copy](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323356) \u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Describe security as no longer guaranteed beyond the 2^24 limit](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323425) \u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-light.png\" alt=\"Low severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Preserve wildcard markers in the rendered OID shorthand](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323480) \u00b7 New\n</details>\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nAdds the first substantive SLH-DSA-FEW draft for X.509, extending RFC 9909 conventions to SP 800-230 parameter sets limited to 2^24 signatures per key.\n\n**Changes:**\n- Defines proposed Pure and HashSLH-DSA-FEW identifiers, X.509 usage, and key/signature sizes.\n- Documents signature-counting requirements and operational and security considerations.\n- Adds ASN.1 generation and consistency checks, editor ownership, and example scaffolding.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| `examples/\u200bREADME.md` | Outlines reproducible examples and their prerequisites. |\r\n| `draft-kousidis-lamps-x509-slhdsa-fewsigs.md` | Replaces placeholders with the full draft specification. |\r\n| `asn1/\u200bX509-SLHDSA-FEW-2026.asn` | Adds algorithm identifiers and associated ASN.1 object sets. |\r\n| `asn1/\u200bgen.py` | Generates the ASN.1 module and checks for drift. |\r\n| `.github/\u200bworkflows/\u200basn1.yml` | Runs the generated-module consistency check. |\r\n| `.github/\u200bCODEOWNERS` | Assigns all-file review ownership to the editors team. |\n</details>\n\n<sub>Review effort: Max</sub>",
+          "createdAt": "2026-11-03T14:53:21Z",
+          "updatedAt": "2026-11-03T14:53:22Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "The existing `Update Generated Files` workflow explicitly regenerates `.github/CODEOWNERS` and removes customizations. Its next manual run will therefore overwrite this team rule and remove the intended all-files editor ownership. Please make the team rule persist through that workflow, or exclude this file from regeneration.",
+              "createdAt": "2026-11-03T14:53:21Z",
+              "updatedAt": "2026-11-03T14:53:23Z"
+            },
+            {
+              "originalPosition": 317,
+              "body": "A certificate's expiration date does not stop its private key from signing, and the key may also have been used before issuance or under another certificate. Base any time bound on the key's remaining signature budget and maximum aggregate signing rate, and enforce retirement of every copy at the deadline.",
+              "createdAt": "2026-11-03T14:53:22Z",
+              "updatedAt": "2026-11-03T14:53:23Z"
+            },
+            {
+              "originalPosition": 347,
+              "body": "The PR description says this should state that the claimed security is \u201cno longer guaranteed,\u201d but this paragraph asserts that security drops below the category and decreases with every additional signature. Use the intended loss-of-guarantee wording while retaining the normative 2^24 limit. Same issue in the Introduction at lines 143\u2013145.",
+              "createdAt": "2026-11-03T14:53:22Z",
+              "updatedAt": "2026-11-03T14:53:23Z"
+            },
+            {
+              "originalPosition": 184,
+              "body": "The unescaped asterisks are parsed as Markdown emphasis, so the rendered draft loses the wildcard markers from this OID shorthand. Use inline code for the pattern here and at lines 269\u2013271, 281, and 285 so the X.509 requirements retain their intended scope.",
+              "createdAt": "2026-11-03T14:53:22Z",
+              "updatedAt": "2026-11-03T14:53:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABVv31Iw",
+          "commit": {
+            "abbreviatedOid": "36e18bd"
+          },
+          "author": "copilot-swe-agent",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-03T15:00:13Z",
+          "updatedAt": "2026-11-03T15:00:13Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Added a workflow step to restore the editor team\u2019s wildcard rule after generated files are updated. Commit: `5523135`.",
+              "createdAt": "2026-11-03T15:00:13Z",
+              "updatedAt": "2026-11-03T15:00:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABVwz0NA",
+          "commit": {
+            "abbreviatedOid": "36e18bd"
+          },
+          "author": "FelixKnopp",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "Vielen Dank, Stavros, dass du das Repository aufgesetzt hast und f\u00fcr all deine Erg\u00e4nzungen und Anpassungen! Ich habe nur noch ein paar kleinere Anmerkungen meinerseits. Die k\u00f6nnt ihr nat\u00fcrlich gerne verwerfen, wenn ihr anderer Meinung seid \u2013 mit einer Ausnahme: das Replacement der Mail \ud83d\ude09",
+          "createdAt": "2026-11-03T16:01:55Z",
+          "updatedAt": "2026-11-03T16:51:00Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "Please replace current mail with felix.knopp.ietf@proton.me",
+              "createdAt": "2026-11-03T16:01:55Z",
+              "updatedAt": "2026-11-03T16:51:00Z"
+            },
+            {
+              "originalPosition": 120,
+              "body": "Remove the term SLH-DSA-FEW here, as its definition is introduced later in the text.\n\nProposal: Add sentence afterwards to emphasize security concerns if limit is exceeded like:\nThe security of these parameters depends entirely on adhering to this limit.",
+              "createdAt": "2026-11-03T16:14:07Z",
+              "updatedAt": "2026-11-03T16:51:00Z"
+            },
+            {
+              "originalPosition": 204,
+              "body": "add postfix -FEW ",
+              "createdAt": "2026-11-03T16:24:35Z",
+              "updatedAt": "2026-11-03T16:51:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABVyw5Zg",
+          "commit": {
+            "abbreviatedOid": "36e18bd"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-03T18:27:22Z",
+          "updatedAt": "2026-11-03T18:27:22Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "Can you make that a suggestion, that can be commited?\r\n\r\nSee: https://docs.github.com/en/pull-requests/how-tos/review-pull-requests/commenting-on-a-pull-request",
+              "createdAt": "2026-11-03T18:27:22Z",
+              "updatedAt": "2026-11-03T18:34:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABVyxQKA",
+          "commit": {
+            "abbreviatedOid": "36e18bd"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-03T18:27:50Z",
+          "updatedAt": "2026-11-03T18:27:50Z",
+          "comments": [
+            {
+              "originalPosition": 120,
+              "body": "Propse a concrete sentence as a suggestion, that can be commited.",
+              "createdAt": "2026-11-03T18:27:50Z",
+              "updatedAt": "2026-11-03T18:27:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABVyxlrQ",
+          "commit": {
+            "abbreviatedOid": "36e18bd"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-03T18:28:17Z",
+          "updatedAt": "2026-11-03T18:28:17Z",
+          "comments": [
+            {
+              "originalPosition": 204,
+              "body": "Make it a suggestion, that can be edited/commited.",
+              "createdAt": "2026-11-03T18:28:17Z",
+              "updatedAt": "2026-11-03T18:28:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABVzJmhA",
+          "commit": {
+            "abbreviatedOid": "36e18bd"
+          },
+          "author": "FelixKnopp",
+          "authorAssociation": "NONE",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-11-03T18:58:46Z",
+          "updatedAt": "2026-11-03T19:53:22Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "```suggestion\n    email: felix.knopp.ietf@proton.me\n```",
+              "createdAt": "2026-11-03T18:58:46Z",
+              "updatedAt": "2026-11-03T19:53:22Z"
+            },
+            {
+              "originalPosition": 204,
+              "body": "```suggestion\nidentifiers for Pure SLH-DSA-FEW and HashSLH-DSA-FEW.\n```",
+              "createdAt": "2026-11-03T19:03:20Z",
+              "updatedAt": "2026-11-03T19:53:22Z"
+            },
+            {
+              "originalPosition": 120,
+              "body": "```suggestion\nrestricted to at most 2^24 signatures per signing key. The security of these parameters depends entirely on adhering to this limit.\n```",
+              "createdAt": "2026-11-03T19:05:39Z",
+              "updatedAt": "2026-11-03T19:53:22Z"
+            },
+            {
+              "originalPosition": 308,
+              "body": "```suggestion\nUnlike the parameter sets of {{FIPS205}}, an SLH-DSA-FEW parameter set limits a single signing key to 2^24 signatures, a number that can be reached in practice (see {{sec-cons}}). Measures to stay within the limit\n```",
+              "createdAt": "2026-11-03T19:10:23Z",
+              "updatedAt": "2026-11-03T19:53:22Z"
+            },
+            {
+              "originalPosition": 323,
+              "body": "```suggestion\n  operations;\n* limiting what the key can be used for, for example with the keyUsage \n  extension.\n  \n```",
+              "createdAt": "2026-11-03T19:30:25Z",
+              "updatedAt": "2026-11-03T19:53:22Z"
+            },
+            {
+              "originalPosition": 314,
+              "body": "```suggestion\n* maintaining a globally consistent, persistent counter tracking the number of \n  signatures generated by each private key across all instances holding the key, \n  including HSMs, backups, and replicas. Update the counter before releasing \n  each signature, refuse to sign if the counter cannot be successfully updated, \n  and cease signing or destroy the private key before the usage limit is reached;\n```",
+              "createdAt": "2026-11-03T19:47:59Z",
+              "updatedAt": "2026-11-03T19:53:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV0sNYw",
+          "commit": {
+            "abbreviatedOid": "d278ef2"
+          },
+          "author": "github-actions",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-03T21:09:23Z",
+          "updatedAt": "2026-11-03T21:09:23Z",
+          "comments": [
+            {
+              "originalPosition": 312,
+              "body": "````suggestion\n* maintaining a globally consistent, persistent counter tracking the number of\n  signatures generated by each private key across all instances holding the key,\n  including HSMs, backups, and replicas. Update the counter before releasing\n  each signature, refuse to sign if the counter cannot be successfully updated,\n````",
+              "createdAt": "2026-11-03T21:09:23Z",
+              "updatedAt": "2026-11-03T21:09:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV0tfYQ",
+          "commit": {
+            "abbreviatedOid": "c2b742b"
+          },
+          "author": "github-actions",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-03T21:10:52Z",
+          "updatedAt": "2026-11-03T21:10:52Z",
+          "comments": [
+            {
+              "originalPosition": 325,
+              "body": "````suggestion\n\n````",
+              "createdAt": "2026-11-03T21:10:52Z",
+              "updatedAt": "2026-11-03T21:10:52Z"
+            },
+            {
+              "originalPosition": 323,
+              "body": "````suggestion\n* limiting what the key can be used for, for example with the keyUsage\n````",
+              "createdAt": "2026-11-03T21:10:52Z",
+              "updatedAt": "2026-11-03T21:10:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV0ujiA",
+          "commit": {
+            "abbreviatedOid": "3d4de80"
+          },
+          "author": "github-actions",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-03T21:12:21Z",
+          "updatedAt": "2026-11-03T21:12:21Z",
+          "comments": [
+            {
+              "originalPosition": 323,
+              "body": "````suggestion\n* limiting what the key can be used for, for example with the keyUsage\n````",
+              "createdAt": "2026-11-03T21:12:21Z",
+              "updatedAt": "2026-11-03T21:12:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV00hgQ",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "copilot-swe-agent",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-03T21:20:59Z",
+          "updatedAt": "2026-11-03T21:20:59Z",
+          "comments": [
+            {
+              "originalPosition": 347,
+              "body": "Updated the Introduction to say the security is no longer guaranteed to meet the parameter set\u2019s category beyond 2^24 signatures, retaining the normative limit. Commit: `c099002`.",
+              "createdAt": "2026-11-03T21:20:59Z",
+              "updatedAt": "2026-11-03T21:20:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV00hmQ",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "copilot-swe-agent",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-03T21:20:59Z",
+          "updatedAt": "2026-11-03T21:21:00Z",
+          "comments": [
+            {
+              "originalPosition": 184,
+              "body": "Formatted the cited OID wildcard patterns as inline code to preserve the asterisks in rendered Markdown. Commit: `c099002`.",
+              "createdAt": "2026-11-03T21:21:00Z",
+              "updatedAt": "2026-11-03T21:21:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV00how",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "copilot-swe-agent",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-03T21:20:59Z",
+          "updatedAt": "2026-11-03T21:21:00Z",
+          "comments": [
+            {
+              "originalPosition": 317,
+              "body": "This guidance is already in the draft: the retirement date is based on the remaining signature budget and aggregate signing rate, and every copy of the key must be disabled or destroyed by that date. The persistent per-key counter covers signatures across all instances holding the key.",
+              "createdAt": "2026-11-03T21:21:00Z",
+              "updatedAt": "2026-11-03T21:21:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV6MnfQ",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T08:10:30Z",
+          "updatedAt": "2026-11-04T08:10:30Z",
+          "comments": [
+            {
+              "originalPosition": 120,
+              "body": "```suggestion\nrestricted to at most 2^24 signatures per signing key. The security of these parameters depends on adhering to this limit.\n```\n\nthe security decreases only mildly after exceeding the limit. ",
+              "createdAt": "2026-11-04T08:10:30Z",
+              "updatedAt": "2026-11-04T08:10:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV6NYzg",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T08:11:48Z",
+          "updatedAt": "2026-11-04T08:11:48Z",
+          "comments": [
+            {
+              "originalPosition": 141,
+              "body": "```suggestion\nand 14,944 bytes long, while signing is less efficient than with the parameter\n```\n\nit is either slower or needs more space, depending on the chosen time-space-tradeoff for signing.",
+              "createdAt": "2026-11-04T08:11:48Z",
+              "updatedAt": "2026-11-04T08:11:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV7pivg",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T10:17:54Z",
+          "updatedAt": "2026-11-04T10:17:54Z",
+          "comments": [
+            {
+              "originalPosition": 174,
+              "body": "Felix and I thought about it, and we came to the conclusion that we have to treat it in the present way. Yes, 800-230 does not mention pre-hash-mode. However, the whole standard 800-230 is written in such a way that is just an addition to the parameter set section of FIPS 205. Therefore, the pre-hash-discussion from FIPS 205 is also relevant fpr 800-230- Do you agree? If yes, this comment should drop.",
+              "createdAt": "2026-11-04T10:17:54Z",
+              "updatedAt": "2026-11-04T10:17:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV8VU5w",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T11:31:41Z",
+          "updatedAt": "2026-11-04T11:31:41Z",
+          "comments": [
+            {
+              "originalPosition": 307,
+              "body": "Do we recommend the following all at once? Or are these just some generic ideas. I would prefer the latter. The former is not possible anyway due to line 319.",
+              "createdAt": "2026-11-04T11:31:41Z",
+              "updatedAt": "2026-11-04T11:31:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV8WO0w",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T11:33:04Z",
+          "updatedAt": "2026-11-04T11:33:04Z",
+          "comments": [
+            {
+              "originalPosition": 313,
+              "body": "I think, this is problematic if we demand it to be necessary, which is implicit in lines 325 onwards. I would write it here as a suggestion. There are use cases, where a counter is not needed as the 2^24 limit is way out of reach.  ",
+              "createdAt": "2026-11-04T11:33:04Z",
+              "updatedAt": "2026-11-04T11:33:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV8Whww",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T11:33:31Z",
+          "updatedAt": "2026-11-04T11:33:31Z",
+          "comments": [
+            {
+              "originalPosition": 329,
+              "body": "See above.",
+              "createdAt": "2026-11-04T11:33:31Z",
+              "updatedAt": "2026-11-04T11:33:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV8XNlQ",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T11:34:33Z",
+          "updatedAt": "2026-11-04T11:34:33Z",
+          "comments": [
+            {
+              "originalPosition": 335,
+              "body": "```suggestion\nSLH-DSA-FEW is not suited for keys that sign on demand in response to\nexternal requests, such as keys used for authentication in interactive\nprotocols (for example, in TLS handshakes) or OCSP responder keys, unless\nthe number of signatures can be bounded reliably. Such keys MUST use\nthe parameter sets of {{FIPS205}}.\n```\nVery important passage. I would make it a MUST instead of SHOULD?",
+              "createdAt": "2026-11-04T11:34:33Z",
+              "updatedAt": "2026-11-04T11:34:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV9llJg",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T13:06:42Z",
+          "updatedAt": "2026-11-04T13:06:42Z",
+          "comments": [
+            {
+              "originalPosition": 358,
+              "body": "```suggestion\n* the intended numbers of signatures signed with the signing key,\n* the number of physical or virtual devices that share the signing key,\n```",
+              "createdAt": "2026-11-04T13:06:42Z",
+              "updatedAt": "2026-11-04T13:06:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV91-zw",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T13:26:24Z",
+          "updatedAt": "2026-11-04T13:26:24Z",
+          "comments": [
+            {
+              "originalPosition": 380,
+              "body": "```suggestion\nsecurity properties of the algorithm. Cached values need to be handled appropriately.\n```\nYes, they are derived from the private key, but so is the public key. These cached values are part of the signature (the way that I would do it), and therefore public information. ",
+              "createdAt": "2026-11-04T13:26:24Z",
+              "updatedAt": "2026-11-04T13:26:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV92hQQ",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "I have some minor comments, but, in general, I agree. ",
+          "createdAt": "2026-11-04T13:26:59Z",
+          "updatedAt": "2026-11-04T13:26:59Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV-XDGw",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T14:04:37Z",
+          "updatedAt": "2026-11-04T14:04:38Z",
+          "comments": [
+            {
+              "originalPosition": 174,
+              "body": "Yes, I agree. Can you remove that stuff?",
+              "createdAt": "2026-11-04T14:04:37Z",
+              "updatedAt": "2026-11-04T14:04:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV-ZwoQ",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T14:07:43Z",
+          "updatedAt": "2026-11-04T14:07:43Z",
+          "comments": [
+            {
+              "originalPosition": 307,
+              "body": "Maybe so?\r\n\r\n\"Unlike the parameter sets of {{FIPS205}}, an SLH-DSA-FEW parameter set limits a single signing key to 2^24 signatures, a number that can be reached in practice (see {{sec-cons}}). Some generic measures to stay within the limit are:\"",
+              "createdAt": "2026-11-04T14:07:43Z",
+              "updatedAt": "2026-11-04T14:07:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV-ar5g",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T14:08:44Z",
+          "updatedAt": "2026-11-04T14:08:44Z",
+          "comments": [
+            {
+              "originalPosition": 313,
+              "body": "Agreed, can you rewrite it? I think the point is that here you do not need a counter at all, but some calculus beforehand and regular key updates, and you are fine.",
+              "createdAt": "2026-11-04T14:08:44Z",
+              "updatedAt": "2026-11-04T14:08:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABV-a4TQ",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T14:08:58Z",
+          "updatedAt": "2026-11-04T14:08:58Z",
+          "comments": [
+            {
+              "originalPosition": 329,
+              "body": "See above :-)",
+              "createdAt": "2026-11-04T14:08:58Z",
+              "updatedAt": "2026-11-04T14:08:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABWAF7_w",
+          "commit": {
+            "abbreviatedOid": "3d23ffc"
+          },
+          "author": "FelixKnopp",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-04T15:56:28Z",
+          "updatedAt": "2026-11-04T16:25:11Z",
+          "comments": [
+            {
+              "originalPosition": 307,
+              "body": "I agree with Kaveh\u2019s comment (R308 to R312). My goal with this suggestion is to make clear that the listed measures only apply to use cases where the signing limit could actually be exceeded, and that they are suggestions for preventing this, not requirements. I would suggest deleting lines R325 to R328.\n\n```suggestion\nUnlike the parameter sets of {{FIPS205}}, an SLH-DSA-FEW parameter set limits a single signing key to 2^24 signatures (see {{sec-cons}}). This limit can be reached in some realistic use cases; for example, a key that produces one signature per second reaches it in about 194 days. Where a use case could reach this limit, operators need to ensure that it is never exceeded. The following measures are suggestions for achieving this:\n```",
+              "createdAt": "2026-11-04T15:56:28Z",
+              "updatedAt": "2026-11-04T16:25:11Z"
+            },
+            {
+              "originalPosition": 313,
+              "body": "Could you elaborate on that? Do you mean that, instead of counting signatures, we should recommend determining the maximum aggregate signing rate across all instances holding the key (including HSMs, backups, and replicas), choosing a key lifetime so that this rate multiplied by the lifetime stays well below 2^24, and enforcing that rate for instance by rate-limiting the signing service?",
+              "createdAt": "2026-11-04T16:04:16Z",
+              "updatedAt": "2026-11-04T16:25:11Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
