@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-05T05:51:56.750288+00:00",
+  "timestamp": "2026-11-08T05:16:22.837277+00:00",
   "repo": "spec-workbench/x509-slhdsa-fewsigs",
   "labels": [
     {
@@ -70,7 +70,7 @@
       "labels": [],
       "body": "First full draft text, merging two sources:\n\n- RFC 9909 (FelixKnopp/x509-slhdsa@b3b216f) as the base\n- Felix's draft on branch `add-slh-dsa-24-parameter-sets` (FelixKnopp/x509-slhdsa@811cd19)\n\n## Contents\n- Pure and HashSLH-DSA-FEW OIDs (`TBD1`\u2013`TBD12`, to be assigned by NIST), in SP 800-230 order\n- \"Use in X.509\" section referring to RFC 9909 Sections 4\u20137\n- Operational and security considerations for the 2^24 signature limit: signature counting across HSMs/replicas, CA/CRL/OCSP, keys that sign on demand (TLS, OCSP) SHOULD use FIPS 205 parameter sets\n- Complete ASN.1 module (`asn1/X509-SLHDSA-FEW-2026.asn`) including `SignatureAlgorithms`, `SMimeCaps`, `PublicKeyAlgorithms`; module OID requested in the SMI PKIX module registry\n- Authors: Kaveh Bashiri, Felix Knopp, Stavros Kousidis\n- `CODEOWNERS` for `@spec-workbench/slhdsa-fewsigs-editors`, placeholder `examples/`\n\n## Changes compared to Felix's branch, please review\n- Removed the claim that security \"does not degrade gradually\" beyond the limit; replaced it with \"no longer guaranteed\" plus an editor's note. Please check against KP22 / SP 800-230.\n- Reworded \"signatures generated beyond the limit are indistinguishable from valid ones\" to refer to forgeries.\n- Fixed the ASN.1 module (`# Todo` line, module OID arc, missing `SignatureAlgorithms`/`SMimeCaps` sets, set name `PublicKeyAlgorithms`).\n- IANA: standard request in \"SMI Security for PKIX Module Identifier\" instead of \"to be determined\".\n\n## Open issues (editor's notes in the draft)\n- OIDs from NIST CSOR\n- Re-check against the final SP 800-230\n- HashSLH-DSA-FEW: needed? NIST OIDs?\n- CMS in this document or a separate one?\n\nBuilds cleanly; `make idnits` shows no errors (remaining warnings: RFC 5912 downref, which is in the downref registry, and `<CODE BEGINS>`, both as in RFC 9909).\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.com/claude-code)",
       "createdAt": "2026-11-02T15:04:48Z",
-      "updatedAt": "2026-11-04T16:25:11Z",
+      "updatedAt": "2026-11-06T12:05:01Z",
       "baseRepository": "spec-workbench/x509-slhdsa-fewsigs",
       "baseRefName": "main",
       "baseRefOid": "1df633e7d71ef18928eacf616c4fe97af26a12ca",
@@ -705,6 +705,26 @@
               "body": "Could you elaborate on that? Do you mean that, instead of counting signatures, we should recommend determining the maximum aggregate signing rate across all instances holding the key (including HSMs, backups, and replicas), choosing a key lifetime so that this rate multiplied by the lifetime stays well below 2^24, and enforcing that rate for instance by rate-limiting the signing service?",
               "createdAt": "2026-11-04T16:04:16Z",
               "updatedAt": "2026-11-04T16:25:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABWbIq0A",
+          "commit": {
+            "abbreviatedOid": "c099002"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-06T12:05:00Z",
+          "updatedAt": "2026-11-06T12:05:00Z",
+          "comments": [
+            {
+              "originalPosition": 313,
+              "body": "Yes, you argue why you think that during the lifetime of the signer you will not pass the limit. This is part of NIST SP 800-230 (https://doi.org/10.6028/NIST.SP.800-230.ipd), so we might as well just point to it. See Section 3 in there:\r\n\r\n> Because the security of these parameters depends entirely on adhering to this limit, users must perform a rigorous and complete evaluation of the operational environment for each signing key. This assessment should account for several critical factors, including the number of physical or virtual devices that share the same signing key, the maximum potential speed of each signing operation, the projected frequency of signature generation across all devices, and the total anticipated operational lifespan of the key. If an application\u2019s requirements or operational controls cannot guarantee that the 224 signature limit will be respected, the parameter sets specified in this document must not be used.",
+              "createdAt": "2026-11-06T12:05:00Z",
+              "updatedAt": "2026-11-06T12:05:01Z"
             }
           ]
         }
