@@ -56,8 +56,8 @@ normative:
     target: https://doi.org/10.6028/NIST.SP.800-230.ipd
     title: "Additional SLH-DSA Parameter Sets for Limited-Signature Use Cases"
     author:
-    - name: Dustin Moody
     - name: Quynh Dang
+    - name: Dustin Moody
     date: 2026-04-13
     seriesinfo:
       "NIST SP": "800-230 ipd (Initial Public Draft)"
@@ -326,17 +326,17 @@ achieving this:
   remaining signature budget and the maximum aggregate signing rate
   across all copies of the key, and permanently disabling or destroying
   every private-key copy by that date;
-* using separate keys, such as a dedicated CRL signing key or a
-  delegated OCSP responder key, for high-volume or automated signing
-  operations;
+* using separate keys for high-volume or automated signing operations,
+  such as a dedicated CRL signing key or a delegated OCSP responder key;
+  such keys will usually not be suited for SLH-DSA-FEW (see below);
 * limiting what the key can be used for, for example with the keyUsage
   extension.
 
 SLH-DSA-FEW is not suited for keys that sign on demand in response to
 external requests, such as keys used for authentication in interactive
-protocols (for example, in TLS handshakes) or OCSP responder keys, unless
-the number of signatures can be bounded reliably. Such keys MUST use
-the parameter sets of {{FIPS205}}.
+protocols (for example, in TLS handshakes) or OCSP responder keys.
+Unless the number of signatures generated with such a key can be
+bounded reliably, SLH-DSA-FEW MUST NOT be used for that key.
 
 
 # Security Considerations {#sec-cons}
@@ -359,7 +359,7 @@ Therefore, before using SLH-DSA-FEW, the operator MUST evaluate the
 operational environment of each signing key, taking into account at
 least:
 
-* the intended numbers of signatures signed with the signing key,
+* the intended number of signatures signed with the signing key,
 * the number of physical or virtual devices that share the signing key,
 * the maximum possible speed of each signing operation,
 * the projected frequency of signature generation across all devices,
@@ -371,8 +371,8 @@ more than 2^24 signatures will be generated with a key, SLH-DSA-FEW MUST
 NOT be used for that key; the parameter sets of {{FIPS205}} can be used
 instead.
 
-All signing operations made with the key count against the limit,
-whether in Pure SLH-DSA or in HashSLH-DSA mode. For a CA key, this
+All signing operations made with the key count against the limit.
+For a CA key, this
 includes signatures on certificates, CRLs, and, if the CA key is also
 used for this purpose, OCSP responses.
 Because of this, SLH-DSA-FEW is best suited to keys that sign few
@@ -381,7 +381,9 @@ volume.
 
 According to {{SP800-230}}, caching parts of or the whole SLH-DSA
 hypertree to speed up signing is permitted and does not affect the
-security properties of the algorithm. Cached values need to be handled appropriately.
+security properties of the algorithm. Cached values need to be
+protected against modification, since corrupted values lead to invalid
+signatures.
 
 <aside markdown="block">
 EDITOR'S NOTE: Consider quantifying how fast security degrades beyond
