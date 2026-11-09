@@ -1471,9 +1471,9 @@ across all copies of the key, and permanently disabling or destroying
 every private-key copy by that date;<a href="#section-5-3.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-3.5">
-          <p id="section-5-3.5.1">using separate keys, such as a dedicated CRL signing key or a
-delegated OCSP responder key, for high-volume or automated signing
-operations;<a href="#section-5-3.5.1" class="pilcrow">¶</a></p>
+          <p id="section-5-3.5.1">using separate keys for high-volume or automated signing operations,
+such as a dedicated CRL signing key or a delegated OCSP responder key;
+such keys will usually not be suited for SLH-DSA-FEW (see below);<a href="#section-5-3.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-3.6">
           <p id="section-5-3.6.1">limiting what the key can be used for, for example with the keyUsage
@@ -1482,9 +1482,9 @@ extension.<a href="#section-5-3.6.1" class="pilcrow">¶</a></p>
       </ul>
 <p id="section-5-4">SLH-DSA-FEW is not suited for keys that sign on demand in response to
 external requests, such as keys used for authentication in interactive
-protocols (for example, in TLS handshakes) or OCSP responder keys, unless
-the number of signatures can be bounded reliably. Such keys <span class="bcp14">MUST</span> use
-the parameter sets of <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span>.<a href="#section-5-4" class="pilcrow">¶</a></p>
+protocols (for example, in TLS handshakes) or OCSP responder keys.
+Unless the number of signatures generated with such a key can be
+bounded reliably, SLH-DSA-FEW <span class="bcp14">MUST NOT</span> be used for that key.<a href="#section-5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-cons">
@@ -1509,7 +1509,7 @@ operational environment of each signing key, taking into account at
 least:<a href="#section-6-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-4.1">
-          <p id="section-6-4.1.1">the intended numbers of signatures signed with the signing key,<a href="#section-6-4.1.1" class="pilcrow">¶</a></p>
+          <p id="section-6-4.1.1">the intended number of signatures signed with the signing key,<a href="#section-6-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-4.2">
           <p id="section-6-4.2.1">the number of physical or virtual devices that share the signing key,<a href="#section-6-4.2.1" class="pilcrow">¶</a></p>
@@ -1528,8 +1528,8 @@ and<a href="#section-6-4.4.1" class="pilcrow">¶</a></p>
 <p id="section-6-5">If the evaluation and the operational controls cannot guarantee that no
 more than 2^24 signatures will be generated with a key, SLH-DSA-FEW <span class="bcp14">MUST NOT</span> be used for that key; the parameter sets of <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span> can be used
 instead.<a href="#section-6-5" class="pilcrow">¶</a></p>
-<p id="section-6-6">All signing operations made with the key count against the limit,
-whether in Pure SLH-DSA or in HashSLH-DSA mode. For a CA key, this
+<p id="section-6-6">All signing operations made with the key count against the limit.
+For a CA key, this
 includes signatures on certificates, CRLs, and, if the CA key is also
 used for this purpose, OCSP responses.
 Because of this, SLH-DSA-FEW is best suited to keys that sign few
@@ -1537,7 +1537,9 @@ objects, for example a code signing key or a CA key with a low issuance
 volume.<a href="#section-6-6" class="pilcrow">¶</a></p>
 <p id="section-6-7">According to <span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span>, caching parts of or the whole SLH-DSA
 hypertree to speed up signing is permitted and does not affect the
-security properties of the algorithm. Cached values need to be handled appropriately.<a href="#section-6-7" class="pilcrow">¶</a></p>
+security properties of the algorithm. Cached values need to be
+protected against modification, since corrupted values lead to invalid
+signatures.<a href="#section-6-7" class="pilcrow">¶</a></p>
 <aside id="section-6-8">
         <p id="section-6-8.1">EDITOR'S NOTE: Consider quantifying how fast security degrades beyond
 2^24 signatures, based on the analysis of <span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span> or the
@@ -1600,7 +1602,7 @@ by NIST <span>[<a href="#CSOR" class="cite xref">CSOR</a>]</span> and not by IAN
 <dd class="break"></dd>
 <dt id="SP800-230">[SP800-230]</dt>
         <dd>
-<span class="refAuthor">Moody, D.</span> and <span class="refAuthor">Q. Dang</span>, <span class="refTitle">"Additional SLH-DSA Parameter Sets for Limited-Signature Use Cases"</span>, <span class="seriesInfo">NIST SP 800-230 ipd (Initial Public Draft)</span>, <time datetime="2026-04-13" class="refDate">13 April 2026</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-230.ipd">https://doi.org/10.6028/NIST.SP.800-230.ipd</a>&gt;</span>. </dd>
+<span class="refAuthor">Dang, Q.</span> and <span class="refAuthor">D. Moody</span>, <span class="refTitle">"Additional SLH-DSA Parameter Sets for Limited-Signature Use Cases"</span>, <span class="seriesInfo">NIST SP 800-230 ipd (Initial Public Draft)</span>, <time datetime="2026-04-13" class="refDate">13 April 2026</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-230.ipd">https://doi.org/10.6028/NIST.SP.800-230.ipd</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="X680">[X680]</dt>
         <dd>
