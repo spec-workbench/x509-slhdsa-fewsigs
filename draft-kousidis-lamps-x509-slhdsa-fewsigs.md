@@ -39,6 +39,10 @@ author:
     fullname: Stavros Kousidis
     organization: TH Köln
     email: kousidis.ietf@gmail.com
+ -
+    fullname: Daniel Van Geest
+    organization: CryptoNext Security
+    email: daniel.vangeest@cryptonext-security.com
 
 normative:
   RFC5280:
