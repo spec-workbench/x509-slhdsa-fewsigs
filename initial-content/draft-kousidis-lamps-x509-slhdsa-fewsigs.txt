@@ -282,40 +282,10 @@ Table of Contents
    limits a single signing key to 2^24 signatures (see Section 6).  This
    limit can be reached in some realistic use cases; for example, a key
    that produces one signature per second reaches it in about 194 days.
-   Where a use case could reach this limit, operators need to ensure
-   that it is never exceeded.  The following measures are suggestions
-   for achieving this:
-
-   *  bounding the number of signatures in advance, as part of the
-      evaluation described in Section 6 and in Section 3 of [SP800-230]:
-      determining the maximum aggregate signing rate across all
-      instances holding the key, including HSMs, backups, and replicas;
-      choosing a key lifetime such that this rate multiplied by the
-      lifetime stays well below 2^24; enforcing that rate, for example
-      by rate-limiting the signing service; and replacing the key at the
-      end of its lifetime;
-
-   *  where such a bound cannot be established in advance, maintaining a
-      globally consistent, persistent counter of the signatures
-      generated with each private key across all instances holding the
-      key, updating it before each signature is released, refusing to
-      sign if it cannot be updated, and ceasing to sign with the key or
-      destroying it before the limit is reached;
-
-   *  not sharing a private key between many signing devices;
-
-   *  setting the certificate's "Not After" (expiration) date based on
-      the remaining signature budget and the maximum aggregate signing
-      rate across all copies of the key, and permanently disabling or
-      destroying every private-key copy by that date;
-
-   *  using separate keys for high-volume or automated signing
-      operations, such as a dedicated CRL signing key or a delegated
-      OCSP responder key; such keys will usually not be suited for SLH-
-      DSA-FEW (see below);
-
-   *  limiting what the key can be used for, for example with the
-      keyUsage extension.
+   The Operational Considerations of [SP800-230] apply here.  In
+   particular, if an application's requirements or operational controls
+   cannot guarantee that the 2^24 signatures limit will be respected,
+   the parameter sets specified in this document must not be used.
 
    SLH-DSA-FEW is not suited for keys that sign on demand in response to
    external requests, such as keys used for authentication in
