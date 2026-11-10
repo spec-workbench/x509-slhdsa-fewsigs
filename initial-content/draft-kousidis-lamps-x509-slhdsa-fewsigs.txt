@@ -287,12 +287,12 @@ Table of Contents
    cannot guarantee that the 2^24 signatures limit will be respected,
    the parameter sets specified in this document must not be used.
 
-   SLH-DSA-FEW is not suited for keys that sign on demand in response to
-   external requests, such as keys used for authentication in
-   interactive protocols (for example, in TLS handshakes) or OCSP
-   responder keys.  Unless the number of signatures generated with such
-   a key can be bounded reliably, SLH-DSA-FEW MUST NOT be used for that
-   key.
+   In particular, SLH-DSA-FEW is not suited for keys that sign on demand
+   in response to external requests, such as keys used for
+   authentication in interactive protocols (for example, in TLS
+   handshakes) or OCSP responder keys.  Unless the number of signatures
+   generated with such a key can be bounded reliably, SLH-DSA-FEW MUST
+   NOT be used for that key.
 
 6.  Security Considerations
 
