@@ -310,9 +310,10 @@ Unlike the parameter sets of {{FIPS205}}, an SLH-DSA-FEW parameter set
 limits a single signing key to 2^24 signatures (see {{sec-cons}}). This
 limit can be reached in some realistic use cases; for example, a key
 that produces one signature per second reaches it in about 194 days.
-The Operational Considerations of {{SP800-230}} apply here. In particular, if an application's requirements or operational controls cannot guarantee that the 2^24 signatures limit will be respected, the parameter sets specified in this document must not be used.
+The usage and security requirements in Section 3 of {{SP800-230}}
+apply; see also {{sec-cons}}.
 
-In particular, SLH-DSA-FEW is not suited for keys that sign on demand in response to
+SLH-DSA-FEW is not suited for keys that sign on demand in response to
 external requests, such as keys used for authentication in interactive
 protocols (for example, in TLS handshakes) or OCSP responder keys.
 Unless the number of signatures generated with such a key can be
@@ -322,31 +323,20 @@ bounded reliably, SLH-DSA-FEW MUST NOT be used for that key.
 # Security Considerations {#sec-cons}
 
 The Security Considerations of {{RFC9909}} apply, except as changed
-below.
-
-{{RFC9909}} states that an SLH-DSA tree MUST NOT be used for more than
-2^64 signing operations. This applies to the parameter sets of
-{{FIPS205}} only. A key pair for an SLH-DSA-FEW parameter set MUST NOT
-be used for more than 2^24 signing operations.
+below. In addition, the usage and security requirements in Section 3 of
+{{SP800-230}} apply. In particular, a key pair for an SLH-DSA-FEW
+parameter set MUST NOT be used for more than 2^24 signing operations,
+instead of the 2^64 stated in {{RFC9909}}.
 
 Beyond 2^24 signatures, the security of the key is no longer guaranteed
-to meet the security category listed in {{tab-strengths}}. A relying party
-cannot detect that the limit
-has been exceeded: neither a certificate nor a signature reveals how many
-signatures have been generated with a key, and a forgery made possible
-by exceeding the limit is indistinguishable from a genuine signature.
-Therefore, before using SLH-DSA-FEW, the operator MUST evaluate the
-operational environment of each signing key, taking into account at
-least:
+to meet the security category listed in {{tab-strengths}}. A relying
+party cannot detect that the limit has been exceeded: neither a
+certificate nor a signature reveals how many signatures have been
+generated with a key, and a forgery made possible by exceeding the limit
+is indistinguishable from a genuine signature.
 
-* the intended number of signatures signed with the signing key,
-* the number of physical or virtual devices that share the signing key,
-* the maximum possible speed of each signing operation,
-* the projected frequency of signature generation across all devices,
-  and
-* the intended operational lifetime of the key.
-
-If the evaluation and the operational controls cannot guarantee that no
+If the evaluation of the operational environment required by Section 3
+of {{SP800-230}} and the operational controls cannot guarantee that no
 more than 2^24 signatures will be generated with a key, SLH-DSA-FEW MUST
 NOT be used for that key; the parameter sets of {{FIPS205}} can be used
 instead.
@@ -364,12 +354,6 @@ hypertree to speed up signing is permitted and does not affect the
 security properties of the algorithm. Cached values need to be
 protected against modification, since corrupted values lead to invalid
 signatures.
-
-<aside markdown="block">
-EDITOR'S NOTE: Consider quantifying how fast security degrades beyond
-2^24 signatures, based on the analysis of {{SP800-230}} or the
-literature (e.g., {{KP22}}).
-</aside>
 
 
 # IANA Considerations {#iana}
