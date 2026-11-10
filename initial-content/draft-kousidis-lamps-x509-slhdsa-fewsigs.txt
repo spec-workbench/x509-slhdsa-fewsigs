@@ -6,8 +6,10 @@ Limited Additional Mechanisms for PKIX and SMIME              K. Bashiri
 Internet-Draft                                                  F. Knopp
 Updates: 9909 (if approved)                                          BSI
 Intended status: Standards Track                             S. Kousidis
-Expires: 13 May 2027                                             TH Köln
-                                                         9 November 2026
+Expires: 14 May 2027                                             TH Köln
+                                                             D. V. Geest
+                                                     CryptoNext Security
+                                                        10 November 2026
 
 
 Internet X.509 Public Key Infrastructure: Algorithm Identifiers for SLH-
@@ -59,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 May 2027.
+   This Internet-Draft will expire on 14 May 2027.
 
 Copyright Notice
 
@@ -826,3 +828,8 @@ Authors' Addresses
    Stavros Kousidis
    TH Köln
    Email: kousidis.ietf@gmail.com
+
+
+   Daniel Van Geest
+   CryptoNext Security
+   Email: daniel.vangeest@cryptonext-security.com
