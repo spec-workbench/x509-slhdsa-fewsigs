@@ -312,7 +312,7 @@ limit can be reached in some realistic use cases; for example, a key
 that produces one signature per second reaches it in about 194 days.
 The Operational Considerations of {{SP800-230}} apply here. In particular, if an application's requirements or operational controls cannot guarantee that the 2^24 signatures limit will be respected, the parameter sets specified in this document must not be used.
 
-SLH-DSA-FEW is not suited for keys that sign on demand in response to
+In particular, SLH-DSA-FEW is not suited for keys that sign on demand in response to
 external requests, such as keys used for authentication in interactive
 protocols (for example, in TLS handshakes) or OCSP responder keys.
 Unless the number of signatures generated with such a key can be
