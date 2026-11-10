@@ -34,5 +34,8 @@ jobs:
         make: update-files
         token: ${{ github.token }}
 
+    - name: "Preserve CODEOWNERS"
+      run: echo '*  @spec-workbench/slhdsa-fewsigs-editors' >> .github/CODEOWNERS
+
     - name: "Push Update"
       run: git push
