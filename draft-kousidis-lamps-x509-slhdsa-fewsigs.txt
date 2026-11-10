@@ -2,20 +2,30 @@
 
 
 
-LAMPS Working Group                                          S. Kousidis
-Internet-Draft                                                   TH Köln
-Updates: 9909 (if approved)                              2 November 2026
-Intended status: Standards Track                                        
-Expires: 6 May 2027
+Limited Additional Mechanisms for PKIX and SMIME              K. Bashiri
+Internet-Draft                                                  F. Knopp
+Updates: 9909 (if approved)                                          BSI
+Intended status: Standards Track                             S. Kousidis
+Expires: 14 May 2027                                             TH Köln
+                                                             D. V. Geest
+                                                     CryptoNext Security
+                                                        10 November 2026
 
 
 Internet X.509 Public Key Infrastructure: Algorithm Identifiers for SLH-
-         DSA Parameter Sets with a Reduced Number of Signatures
+         DSA with a Limited Number of Signatures (SLH-DSA-FEW)
             draft-kousidis-lamps-x509-slhdsa-fewsigs-latest
 
 Abstract
 
-   TODO Abstract
+   RFC 9909 specifies the conventions for using the Stateless Hash-Based
+   Digital Signature Algorithm (SLH-DSA) in the X.509 Public Key
+   Infrastructure.  NIST SP 800-230 adds six SLH-DSA parameter sets that
+   are restricted to at most 2^24 signatures per signing key.  The
+   security of these parameters depends on adhering to this limit.  This
+   document specifies the algorithm identifiers for these parameter sets
+   in X.509 and updates RFC 9909 to address the much lower signature
+   limit.
 
 About This Document
 
@@ -27,8 +37,9 @@ About This Document
    found at https://datatracker.ietf.org/doc/draft-kousidis-lamps-x509-
    slhdsa-fewsigs/.
 
-   Discussion of this document takes place on the LAMPS Working Group
-   mailing list (mailto:spasm@ietf.org), which is archived at
+   Discussion of this document takes place on the Limited Additional
+   Mechanisms for PKIX and SMIME Working Group mailing list
+   (mailto:spasm@ietf.org), which is archived at
    https://mailarchive.ietf.org/arch/browse/spasm/.  Subscribe at
    https://www.ietf.org/mailman/listinfo/spasm/.
 
@@ -50,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 May 2027.
+   This Internet-Draft will expire on 14 May 2027.
 
 Copyright Notice
 
@@ -69,16 +80,87 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
+     1.1.  Notation
    2.  Conventions and Definitions
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  Normative References
+   3.  Algorithm Identifiers
+   4.  Use in X.509
+   5.  Operational Considerations
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
+   Appendix A.  ASN.1 Module
+   Appendix B.  Security Strengths
+   Appendix C.  Examples
    Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
-   TODO Introduction
+   [RFC9909] defines the conventions for the use of the twelve SLH-DSA
+   parameter sets of [FIPS205] in the X.509 Public Key Infrastructure.
+   These parameter sets are designed to be secure for up to 2^64
+   signatures per key, which is the reason for their large signatures of
+   7,856 to 49,856 bytes.
+
+   [SP800-230] specifies six additional parameter sets for NIST security
+   categories 1, 3, and 5 that reduce signature size and verification
+   time by limiting a signing key to 2^24 (16,777,216) signatures; see
+   [KP22] and [FD24] for background.  The resulting signatures are
+   3,856, 7,752, and 14,944 bytes long, while signing is less efficient
+   than with the parameter sets of [FIPS205].  If a key is used to
+   generate more than 2^24 signatures, its security is no longer
+   guaranteed to meet the security category of its parameter set.
+   [SP800-230] names signing of software, firmware, and digital
+   certificates as the intended use cases, and states that these
+   parameter sets are not approved for general-purpose use.
+
+   This document refers to these additional parameter sets as SLH-DSA-
+   FEW.  The corresponding pure version is referred to as Pure SLH-DSA-
+   FEW, and the pre-hash version as HashSLH-DSA-FEW.  The signature
+   algorithms are those of [FIPS205]; only the parameter sets differ.
+
+   This document:
+
+   *  defines the algorithm identifiers for the six SLH-DSA-FEW
+      parameter sets, for both Pure SLH-DSA-FEW and HashSLH-DSA-FEW
+      (Section 3),
+
+   *  specifies how the conventions of [RFC9909] apply to them
+      (Section 4),
+
+   *  defines the associated ASN.1 module (Appendix A), and
+
+   *  updates the Operational Considerations and Security Considerations
+      of [RFC9909] to address the 2^24 signature limit (Section 5 and
+      Section 6).
+
+      |  EDITOR'S NOTE: Open issues for this version:
+      |  
+      |     *  The object identifiers are to be assigned by NIST in
+      |        [CSOR].
+      |  
+      |     *  [SP800-230] is an initial public draft.  The parameter
+      |        set names, the values in Table 1, and the signature limit
+      |        need to be re-verified against the final publication.
+      |  
+      |     *  Whether HashSLH-DSA-FEW identifiers are needed, and
+      |        whether NIST will assign OIDs for them in [CSOR], remains
+      |        open.  Their names, number, and pre-hash function
+      |        pairings in Section 3 are provisional.
+      |  
+      |     *  Whether CMS [RFC9814] is covered in this document or a
+      |        separate one is to be discussed in the LAMPS Working
+      |        Group.
+
+1.1.  Notation
+
+   id-slh-dsa-*-24: A shorthand to refer to all six OIDs used to specify
+   the different parameter combinations for Pure SLH-DSA-FEW.
+
+   id-hash-slh-dsa-*-24-*: A shorthand to refer to all six OIDs used to
+   specify the different parameter combinations for HashSLH-DSA-FEW.
 
 2.  Conventions and Definitions
 
@@ -88,20 +170,201 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  Security Considerations
+   Terms and notation not defined here, such as Pure SLH-DSA and
+   HashSLH-DSA, are as defined in [RFC9909].
 
-   TODO Security
+3.  Algorithm Identifiers
 
-4.  IANA Considerations
+   The AlgorithmIdentifier type and the meaning of its fields are as
+   described in Section 3 of [RFC9909].
 
-   This document has no IANA actions.
+   The object identifiers for the SLH-DSA-FEW parameter sets are to be
+   defined by NIST in the Computer Security Objects Register [CSOR].
+   The same algorithm identifiers are used for identifying a public key,
+   a private key, and a signature.  As in [RFC9909], there are separate
+   identifiers for Pure SLH-DSA-FEW and HashSLH-DSA-FEW.
 
-5.  Normative References
+   The Pure SLH-DSA-FEW OIDs are:
+
+      nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
+        country(16) us(840) organization(1) gov(101) csor(3) 4 }
+
+      sigAlgs OBJECT IDENTIFIER ::= { nistAlgorithms 3 }
+
+      id-slh-dsa-sha2-128-24 OBJECT IDENTIFIER ::= { sigAlgs TBD1 }
+
+      id-slh-dsa-shake-128-24 OBJECT IDENTIFIER ::= { sigAlgs TBD2 }
+
+      id-slh-dsa-sha2-192-24 OBJECT IDENTIFIER ::= { sigAlgs TBD3 }
+
+      id-slh-dsa-shake-192-24 OBJECT IDENTIFIER ::= { sigAlgs TBD4 }
+
+      id-slh-dsa-sha2-256-24 OBJECT IDENTIFIER ::= { sigAlgs TBD5 }
+
+      id-slh-dsa-shake-256-24 OBJECT IDENTIFIER ::= { sigAlgs TBD6 }
+
+   The HashSLH-DSA-FEW OIDs are:
+
+      id-hash-slh-dsa-sha2-128-24-with-sha256 OBJECT IDENTIFIER ::= {
+         sigAlgs TBD7 }
+
+      id-hash-slh-dsa-shake-128-24-with-shake128 OBJECT IDENTIFIER ::= {
+         sigAlgs TBD8 }
+
+      id-hash-slh-dsa-sha2-192-24-with-sha512 OBJECT IDENTIFIER ::= {
+         sigAlgs TBD9 }
+
+      id-hash-slh-dsa-shake-192-24-with-shake256 OBJECT IDENTIFIER ::= {
+         sigAlgs TBD10 }
+
+      id-hash-slh-dsa-sha2-256-24-with-sha512 OBJECT IDENTIFIER ::= {
+         sigAlgs TBD11 }
+
+      id-hash-slh-dsa-shake-256-24-with-shake256 OBJECT IDENTIFIER ::= {
+         sigAlgs TBD12 }
+
+   Each OID identifies the corresponding parameter set of Table 1 in
+   [SP800-230]; for example, id-slh-dsa-shake-192-24 identifies SLH-DSA-
+   SHAKE-192-24.  The pre-hash functions follow the pairing used in
+   [RFC9909]: SHA-256 for the SHA2 128-bit parameter set, SHA-512 for
+   the SHA2 192-bit and 256-bit parameter sets, SHAKE128 for the SHAKE
+   128-bit parameter set, and SHAKE256 for the SHAKE 192-bit and 256-bit
+   parameter sets.
+
+      |  RFC EDITOR: Please replace TBD1 through TBD12 throughout this
+      |  document with the values assigned by NIST in [CSOR], and remove
+      |  this note.
+
+   The contents of the parameters component for each algorithm MUST be
+   absent.
+
+4.  Use in X.509
+
+   The following sections of [RFC9909] apply to the id-slh-dsa-*-24 and
+   id-hash-slh-dsa-*-24-* object identifiers in the same way as to the
+   id-slh-dsa-* and id-hash-slh-dsa-* object identifiers, respectively,
+   with the sizes in Table 1:
+
+   *  SLH-DSA Signatures (Section 4 of [RFC9909]).  Signatures are
+      generated and verified with the algorithms of [FIPS205] named
+      there, using the parameter set identified by the algorithm
+      identifier and the empty context string, and are encoded as the
+      raw octet string R || SIG_FORS || SIG_HT.
+
+   *  Subject Public Key Fields (Section 5 of [RFC9909]).  The
+      AlgorithmIdentifier for an SLH-DSA-FEW public key MUST use one of
+      the id-slh-dsa-*-24 or id-hash-slh-dsa-*-24-* object identifiers
+      from Section 3, and its parameters field MUST be absent.  The
+      public key identifiers are defined in Appendix A.
+
+   *  Key Usage Bits (Section 6 of [RFC9909]).  The requirements apply
+      to certificates that indicate an id-slh-dsa-*-24 or id-hash-slh-
+      dsa-*-24-* identifier in the SubjectPublicKeyInfo.
+
+   *  Private Key Format (Section 7 of [RFC9909]).  The private key is
+      the concatenation SK.seed || SK.prf || PK.seed || PK.root of
+      length 4*n bytes, where n is 16, 24, or 32, depending on the
+      security category.
+
+   As in [RFC9909], a key identified by a Pure SLH-DSA-FEW OID is not
+   permitted to be used with a HashSLH-DSA-FEW OID, and vice versa.  A
+   key pair generated for an SLH-DSA-FEW parameter set MUST NOT be used
+   with any other parameter set, including the [FIPS205] parameter set
+   of the same security category and hash function.
+
+5.  Operational Considerations
+
+   This section is in addition to the Operational Considerations of
+   [RFC9909], whose note on the very large (2^64) number of signatures
+   does not apply to SLH-DSA-FEW.
+
+   Unlike the parameter sets of [FIPS205], an SLH-DSA-FEW parameter set
+   limits a single signing key to 2^24 signatures (see Section 6).  This
+   limit can be reached in some realistic use cases; for example, a key
+   that produces one signature per second reaches it in about 194 days.
+   The usage and security requirements in Section 3 of [SP800-230]
+   apply; see also Section 6.
+
+   SLH-DSA-FEW is not suited for keys that sign on demand in response to
+   external requests, such as keys used for authentication in
+   interactive protocols (for example, in TLS handshakes) or OCSP
+   responder keys.  Unless the number of signatures generated with such
+   a key can be bounded reliably, SLH-DSA-FEW MUST NOT be used for that
+   key.
+
+6.  Security Considerations
+
+   The Security Considerations of [RFC9909] apply, except as changed
+   below.  In addition, the usage and security requirements in Section 3
+   of [SP800-230] apply.  In particular, a key pair for an SLH-DSA-FEW
+   parameter set MUST NOT be used for more than 2^24 signing operations,
+   instead of the 2^64 stated in [RFC9909].
+
+   Beyond 2^24 signatures, the security of the key is no longer
+   guaranteed to meet the security category listed in Table 1.  A
+   relying party cannot detect that the limit has been exceeded: neither
+   a certificate nor a signature reveals how many signatures have been
+   generated with a key, and a forgery made possible by exceeding the
+   limit is indistinguishable from a genuine signature.
+
+   If the evaluation of the operational environment required by
+   Section 3 of [SP800-230] and the operational controls cannot
+   guarantee that no more than 2^24 signatures will be generated with a
+   key, SLH-DSA-FEW MUST NOT be used for that key; the parameter sets of
+   [FIPS205] can be used instead.
+
+   All signing operations made with the key count against the limit.
+   For a CA key, this includes signatures on certificates, CRLs, and, if
+   the CA key is also used for this purpose, OCSP responses.  Because of
+   this, SLH-DSA-FEW is best suited to keys that sign few objects, for
+   example a code signing key or a CA key with a low issuance volume.
+
+   According to [SP800-230], caching parts of or the whole SLH-DSA
+   hypertree to speed up signing is permitted and does not affect the
+   security properties of the algorithm.  Cached values need to be
+   protected against modification, since corrupted values lead to
+   invalid signatures.
+
+7.  IANA Considerations
+
+   For the ASN.1 module in Appendix A, IANA is requested to assign an
+   object identifier (OID) for the module identifier (TBD0) with a
+   Description of "id-mod-x509-slh-dsa-few-2026".  The OID for the
+   module should be allocated in the "SMI Security for PKIX Module
+   Identifier" registry (1.3.6.1.5.5.7.0).
+
+   The object identifiers for the SLH-DSA-FEW parameter sets are
+   assigned by NIST [CSOR] and not by IANA.
+
+8.  References
+
+8.1.  Normative References
+
+   [CSOR]     National Institute of Standards and Technology (NIST),
+              "Computer Security Objects Register",
+              <https://csrc.nist.gov/projects/computer-security-objects-
+              register/algorithm-registration>.
+
+   [FIPS205]  National Institute of Standards and Technology (NIST),
+              "Stateless Hash-Based Digital Signature Standard", FIPS
+              PUB 205, 13 August 2024,
+              <https://doi.org/10.6028/NIST.FIPS.205>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/rfc/rfc5280>.
+
+   [RFC5912]  Hoffman, P. and J. Schaad, "New ASN.1 Modules for the
+              Public Key Infrastructure Using X.509 (PKIX)", RFC 5912,
+              DOI 10.17487/RFC5912, June 2010,
+              <https://www.rfc-editor.org/rfc/rfc5912>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -114,12 +377,413 @@ Table of Contents
               DOI 10.17487/RFC9909, December 2025,
               <https://www.rfc-editor.org/rfc/rfc9909>.
 
+   [SP800-230]
+              Dang, Q. and D. Moody, "Additional SLH-DSA Parameter Sets
+              for Limited-Signature Use Cases", NIST SP 800-230 ipd
+              (Initial Public Draft), 13 April 2026,
+              <https://doi.org/10.6028/NIST.SP.800-230.ipd>.
+
+   [X680]     ITU-T, "Information technology - Abstract Syntax Notation
+              One (ASN.1): Specification of basic notation", ITU-T
+              Recommendation X.680, ISO/IEC 8824-1:2021, February 2021,
+              <https://www.itu.int/rec/T-REC-X.680>.
+
+   [X690]     ITU-T, "Information technology - Abstract Syntax Notation
+              One (ASN.1): ASN.1 encoding rules: Specification of Basic
+              Encoding Rules (BER), Canonical Encoding Rules (CER) and
+              Distinguished Encoding Rules (DER)", ITU-T
+              Recommendation X.690, ISO/IEC 8825-1:2021, February 2021,
+              <https://www.itu.int/rec/T-REC-X.690>.
+
+8.2.  Informative References
+
+   [FD24]     Fluhrer, S. and Q. Dang, "Smaller SPHINCS+", Cryptology
+              ePrint Archive Paper 2024/018, 2024,
+              <https://eprint.iacr.org/2024/018>.
+
+   [KP22]     Kölbl, S. and J. Philipoom, "A note on SPHINCS+ parameter
+              sets", Cryptology ePrint Archive Paper 2022/1725, 2022,
+              <https://eprint.iacr.org/2022/1725>.
+
+   [RFC9814]  Housley, R., Fluhrer, S., Kampanakis, P., and B.
+              Westerbaan, "Use of the SLH-DSA Signature Algorithm in the
+              Cryptographic Message Syntax (CMS)", RFC 9814,
+              DOI 10.17487/RFC9814, July 2025,
+              <https://www.rfc-editor.org/rfc/rfc9814>.
+
+Appendix A.  ASN.1 Module
+
+   This appendix includes the ASN.1 module [X680] for SLH-DSA-FEW.  Note
+   that as per [RFC5280], certificates use the Distinguished Encoding
+   Rules; see [X690].  This module imports objects from [RFC5912].
+
+   <CODE BEGINS>
+   X509-SLH-DSA-FEW-Module-2026
+     { iso(1) identified-organization(3) dod(6) internet(1) security(5)
+       mechanisms(5) pkix(7) id-mod(0)
+       id-mod-x509-slh-dsa-few-2026(TBD0) }
+
+   DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+   EXPORTS ALL;
+
+   IMPORTS
+     PUBLIC-KEY, SIGNATURE-ALGORITHM, SMIME-CAPS
+       FROM AlgorithmInformation-2009  -- in [RFC5912]
+       { iso(1) identified-organization(3) dod(6) internet(1)
+         security(5) mechanisms(5) pkix(7) id-mod(0)
+         id-mod-algorithmInformation-02(58) } ;
+
+   --
+   -- Object identifiers for the SLH-DSA-FEW parameter sets; see
+   -- [SP800-230]. TBD1 to TBD12 are to be assigned by NIST in [CSOR].
+   --
+
+   nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
+     country(16) us(840) organization(1) gov(101) csor(3) 4 }
+
+   sigAlgs OBJECT IDENTIFIER ::= { nistAlgorithms 3 }
+
+   --
+   -- Pure SLH-DSA-FEW object identifiers
+   --
+
+   id-slh-dsa-sha2-128-24 OBJECT IDENTIFIER ::= { sigAlgs TBD1 }
+
+   id-slh-dsa-shake-128-24 OBJECT IDENTIFIER ::= { sigAlgs TBD2 }
+
+   id-slh-dsa-sha2-192-24 OBJECT IDENTIFIER ::= { sigAlgs TBD3 }
+
+   id-slh-dsa-shake-192-24 OBJECT IDENTIFIER ::= { sigAlgs TBD4 }
+
+   id-slh-dsa-sha2-256-24 OBJECT IDENTIFIER ::= { sigAlgs TBD5 }
+
+   id-slh-dsa-shake-256-24 OBJECT IDENTIFIER ::= { sigAlgs TBD6 }
+
+   --
+   -- HashSLH-DSA-FEW object identifiers
+   --
+
+   id-hash-slh-dsa-sha2-128-24-with-sha256 OBJECT IDENTIFIER ::= {
+     sigAlgs TBD7 }
+
+   id-hash-slh-dsa-shake-128-24-with-shake128 OBJECT IDENTIFIER ::= {
+     sigAlgs TBD8 }
+
+   id-hash-slh-dsa-sha2-192-24-with-sha512 OBJECT IDENTIFIER ::= {
+     sigAlgs TBD9 }
+
+   id-hash-slh-dsa-shake-192-24-with-shake256 OBJECT IDENTIFIER ::= {
+     sigAlgs TBD10 }
+
+   id-hash-slh-dsa-sha2-256-24-with-sha512 OBJECT IDENTIFIER ::= {
+     sigAlgs TBD11 }
+
+   id-hash-slh-dsa-shake-256-24-with-shake256 OBJECT IDENTIFIER ::= {
+     sigAlgs TBD12 }
+
+   --
+   -- Pure SLH-DSA-FEW public key identifiers
+   --
+
+   pk-slh-dsa-sha2-128-24 PUBLIC-KEY ::= {
+     IDENTIFIER id-slh-dsa-sha2-128-24
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   pk-slh-dsa-shake-128-24 PUBLIC-KEY ::= {
+     IDENTIFIER id-slh-dsa-shake-128-24
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   pk-slh-dsa-sha2-192-24 PUBLIC-KEY ::= {
+     IDENTIFIER id-slh-dsa-sha2-192-24
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   pk-slh-dsa-shake-192-24 PUBLIC-KEY ::= {
+     IDENTIFIER id-slh-dsa-shake-192-24
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   pk-slh-dsa-sha2-256-24 PUBLIC-KEY ::= {
+     IDENTIFIER id-slh-dsa-sha2-256-24
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   pk-slh-dsa-shake-256-24 PUBLIC-KEY ::= {
+     IDENTIFIER id-slh-dsa-shake-256-24
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   --
+   -- HashSLH-DSA-FEW public key identifiers
+   --
+
+   pk-hash-slh-dsa-sha2-128-24-with-sha256 PUBLIC-KEY ::= {
+     IDENTIFIER id-hash-slh-dsa-sha2-128-24-with-sha256
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   pk-hash-slh-dsa-shake-128-24-with-shake128 PUBLIC-KEY ::= {
+     IDENTIFIER id-hash-slh-dsa-shake-128-24-with-shake128
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   pk-hash-slh-dsa-sha2-192-24-with-sha512 PUBLIC-KEY ::= {
+     IDENTIFIER id-hash-slh-dsa-sha2-192-24-with-sha512
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   pk-hash-slh-dsa-shake-192-24-with-shake256 PUBLIC-KEY ::= {
+     IDENTIFIER id-hash-slh-dsa-shake-192-24-with-shake256
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   pk-hash-slh-dsa-sha2-256-24-with-sha512 PUBLIC-KEY ::= {
+     IDENTIFIER id-hash-slh-dsa-sha2-256-24-with-sha512
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   pk-hash-slh-dsa-shake-256-24-with-shake256 PUBLIC-KEY ::= {
+     IDENTIFIER id-hash-slh-dsa-shake-256-24-with-shake256
+     -- KEY no ASN.1 wrapping --
+     CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+     -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+   --
+   -- Pure SLH-DSA-FEW signature algorithm identifiers
+   --
+
+   sa-slh-dsa-sha2-128-24 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-slh-dsa-sha2-128-24
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-slh-dsa-sha2-128-24 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-slh-dsa-sha2-128-24 } }
+
+   sa-slh-dsa-shake-128-24 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-slh-dsa-shake-128-24
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-slh-dsa-shake-128-24 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-slh-dsa-shake-128-24 } }
+
+   sa-slh-dsa-sha2-192-24 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-slh-dsa-sha2-192-24
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-slh-dsa-sha2-192-24 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-slh-dsa-sha2-192-24 } }
+
+   sa-slh-dsa-shake-192-24 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-slh-dsa-shake-192-24
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-slh-dsa-shake-192-24 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-slh-dsa-shake-192-24 } }
+
+   sa-slh-dsa-sha2-256-24 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-slh-dsa-sha2-256-24
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-slh-dsa-sha2-256-24 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-slh-dsa-sha2-256-24 } }
+
+   sa-slh-dsa-shake-256-24 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-slh-dsa-shake-256-24
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-slh-dsa-shake-256-24 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-slh-dsa-shake-256-24 } }
+
+   --
+   -- HashSLH-DSA-FEW signature algorithm identifiers
+   --
+
+   sa-hash-slh-dsa-sha2-128-24-with-sha256 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-hash-slh-dsa-sha2-128-24-with-sha256
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-hash-slh-dsa-sha2-128-24-with-sha256 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-hash-slh-dsa-sha2-128-24-with-sha256 } }
+
+   sa-hash-slh-dsa-shake-128-24-with-shake128 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-hash-slh-dsa-shake-128-24-with-shake128
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-hash-slh-dsa-shake-128-24-with-shake128 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-hash-slh-dsa-shake-128-24-with-shake128 } }
+
+   sa-hash-slh-dsa-sha2-192-24-with-sha512 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-hash-slh-dsa-sha2-192-24-with-sha512
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-hash-slh-dsa-sha2-192-24-with-sha512 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-hash-slh-dsa-sha2-192-24-with-sha512 } }
+
+   sa-hash-slh-dsa-shake-192-24-with-shake256 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-hash-slh-dsa-shake-192-24-with-shake256
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-hash-slh-dsa-shake-192-24-with-shake256 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-hash-slh-dsa-shake-192-24-with-shake256 } }
+
+   sa-hash-slh-dsa-sha2-256-24-with-sha512 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-hash-slh-dsa-sha2-256-24-with-sha512
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-hash-slh-dsa-sha2-256-24-with-sha512 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-hash-slh-dsa-sha2-256-24-with-sha512 } }
+
+   sa-hash-slh-dsa-shake-256-24-with-shake256 SIGNATURE-ALGORITHM ::= {
+     IDENTIFIER id-hash-slh-dsa-shake-256-24-with-shake256
+     PARAMS ARE absent
+     PUBLIC-KEYS { pk-hash-slh-dsa-shake-256-24-with-shake256 }
+     SMIME-CAPS {
+       IDENTIFIED BY id-hash-slh-dsa-shake-256-24-with-shake256 } }
+
+   --
+   -- Expand SignatureAlgorithms from [RFC5912]
+   --
+
+   SignatureAlgorithms SIGNATURE-ALGORITHM ::= {
+     sa-slh-dsa-sha2-128-24 |
+     sa-slh-dsa-shake-128-24 |
+     sa-slh-dsa-sha2-192-24 |
+     sa-slh-dsa-shake-192-24 |
+     sa-slh-dsa-sha2-256-24 |
+     sa-slh-dsa-shake-256-24 |
+     sa-hash-slh-dsa-sha2-128-24-with-sha256 |
+     sa-hash-slh-dsa-shake-128-24-with-shake128 |
+     sa-hash-slh-dsa-sha2-192-24-with-sha512 |
+     sa-hash-slh-dsa-shake-192-24-with-shake256 |
+     sa-hash-slh-dsa-sha2-256-24-with-sha512 |
+     sa-hash-slh-dsa-shake-256-24-with-shake256,
+     ... }
+
+   --
+   -- Expand SMimeCaps from [RFC5912]
+   --
+
+   SMimeCaps SMIME-CAPS ::= {
+     sa-slh-dsa-sha2-128-24.&smimeCaps |
+     sa-slh-dsa-shake-128-24.&smimeCaps |
+     sa-slh-dsa-sha2-192-24.&smimeCaps |
+     sa-slh-dsa-shake-192-24.&smimeCaps |
+     sa-slh-dsa-sha2-256-24.&smimeCaps |
+     sa-slh-dsa-shake-256-24.&smimeCaps |
+     sa-hash-slh-dsa-sha2-128-24-with-sha256.&smimeCaps |
+     sa-hash-slh-dsa-shake-128-24-with-shake128.&smimeCaps |
+     sa-hash-slh-dsa-sha2-192-24-with-sha512.&smimeCaps |
+     sa-hash-slh-dsa-shake-192-24-with-shake256.&smimeCaps |
+     sa-hash-slh-dsa-sha2-256-24-with-sha512.&smimeCaps |
+     sa-hash-slh-dsa-shake-256-24-with-shake256.&smimeCaps,
+     ... }
+
+   --
+   -- Expand PublicKeyAlgorithms from [RFC5912]
+   --
+
+   PublicKeyAlgorithms PUBLIC-KEY ::= {
+     pk-slh-dsa-sha2-128-24 |
+     pk-slh-dsa-shake-128-24 |
+     pk-slh-dsa-sha2-192-24 |
+     pk-slh-dsa-shake-192-24 |
+     pk-slh-dsa-sha2-256-24 |
+     pk-slh-dsa-shake-256-24 |
+     pk-hash-slh-dsa-sha2-128-24-with-sha256 |
+     pk-hash-slh-dsa-shake-128-24-with-shake128 |
+     pk-hash-slh-dsa-sha2-192-24-with-sha512 |
+     pk-hash-slh-dsa-shake-192-24-with-shake256 |
+     pk-hash-slh-dsa-sha2-256-24-with-sha512 |
+     pk-hash-slh-dsa-shake-256-24-with-shake256,
+     ... }
+
+   END
+   <CODE ENDS>
+
+Appendix B.  Security Strengths
+
+   The SLH-DSA-FEW parameter sets are defined for NIST security
+   categories 1, 3, and 5; see Appendix B of [RFC9909] for the
+   definition of the categories.  The resulting signature, public key,
+   and private key sizes in bytes are listed in Table 1.  The HashSLH-
+   DSA-FEW parameter sets have the same values as the Pure SLH-DSA-FEW
+   equivalents.  These parameter sets are only secure for up to 2^24
+   signatures per key; see Section 6.
+
+   +================================+==========+=======+======+=======+
+   | OID                            | NIST     | Sig.  | Pub. | Priv. |
+   |                                | Category |       | Key  | Key   |
+   +================================+==========+=======+======+=======+
+   | id-(hash-)slh-dsa-sha2-128-24  | 1        | 3856  | 32   | 64    |
+   +--------------------------------+----------+-------+------+-------+
+   | id-(hash-)slh-dsa-shake-128-24 | 1        | 3856  | 32   | 64    |
+   +--------------------------------+----------+-------+------+-------+
+   | id-(hash-)slh-dsa-sha2-192-24  | 3        | 7752  | 48   | 96    |
+   +--------------------------------+----------+-------+------+-------+
+   | id-(hash-)slh-dsa-shake-192-24 | 3        | 7752  | 48   | 96    |
+   +--------------------------------+----------+-------+------+-------+
+   | id-(hash-)slh-dsa-sha2-256-24  | 5        | 14944 | 64   | 128   |
+   +--------------------------------+----------+-------+------+-------+
+   | id-(hash-)slh-dsa-shake-256-24 | 5        | 14944 | 64   | 128   |
+   +--------------------------------+----------+-------+------+-------+
+
+                 Table 1: SLH-DSA-FEW Security Strengths
+
+Appendix C.  Examples
+
+      |  EDITOR'S NOTE: Examples of a public key, a private key, and a
+      |  self-signed certificate will be added once the object
+      |  identifiers are assigned and implementations of the parameter
+      |  sets are available.
+
 Acknowledgments
 
-   TODO acknowledge.
+   Much of the structure and text of this document is taken from
+   [RFC9909].  Thanks to its authors and contributors.
 
-Author's Address
+Authors' Addresses
+
+   Kaveh Bashiri
+   BSI
+   Email: kaveh.bashiri.ietf@gmail.com
+
+
+   Felix Knopp
+   BSI
+   Email: felix.knopp.ietf@proton.me
+
 
    Stavros Kousidis
    TH Köln
-   Email: stavros.kousidis@th-koeln.de
+   Email: kousidis.ietf@gmail.com
+
+
+   Daniel Van Geest
+   CryptoNext Security
+   Email: daniel.vangeest@cryptonext-security.com

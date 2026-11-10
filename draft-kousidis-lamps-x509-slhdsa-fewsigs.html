@@ -4,31 +4,41 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Internet X.509 Public Key Infrastructure: Algorithm Identifiers for SLH-DSA Parameter Sets with a Reduced Number of Signatures</title>
+<title>Internet X.509 Public Key Infrastructure: Algorithm Identifiers for SLH-DSA with a Limited Number of Signatures (SLH-DSA-FEW)</title>
+<meta content="Kaveh Bashiri" name="author">
+<meta content="Felix Knopp" name="author">
 <meta content="Stavros Kousidis" name="author">
+<meta content="Daniel Van Geest" name="author">
 <meta content="
-       TODO Abstract 
+       RFC 9909 specifies the conventions for using the Stateless Hash-Based
+Digital Signature Algorithm (SLH-DSA) in the X.509 Public Key
+Infrastructure. NIST SP 800-230 adds six SLH-DSA parameter sets that are
+restricted to at most 2^24 signatures per signing key. The security of these parameters depends on adhering to this limit.
+This document specifies the algorithm identifiers for these parameter
+sets in X.509 and updates RFC 9909 to address the much lower signature
+limit. 
     " name="description">
-<meta content="xml2rfc 3.34.1" name="generator">
+<meta content="xml2rfc 3.35.0" name="generator">
 <meta content="SLH-DSA" name="keyword">
+<meta content="SLH-DSA-FEW" name="keyword">
 <meta content="SP 800-230" name="keyword">
-<meta content="X.509" name="keyword">
-<meta content="post-quantum" name="keyword">
+<meta content="PQ Signatures" name="keyword">
+<meta content="post-quantum X.509" name="keyword">
 <meta content="draft-kousidis-lamps-x509-slhdsa-fewsigs-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.1
-    Python 3.14.8
-    ConfigArgParse 1.8.0
+  xml2rfc 3.35.0
+    Python 3.14.10
+    ConfigArgParse 1.9.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.13.4
+    platformdirs 4.14.3
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.9.2
+    wcwidth 0.9.4
 -->
 <link href="draft-kousidis-lamps-x509-slhdsa-fewsigs.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1029,7 +1039,7 @@ svg {
   & :is([stroke="white"], [stroke^="#fff"]) {
     stroke: var(--background-color);
   }
-  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+  & :is([fill="black"], [fill^="#000"], :not([fill], [fill] *)) {
     fill: var(--text-color);
   }
   & :is([fill="white"], [fill^="#fff"]) {
@@ -1043,12 +1053,12 @@ svg {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">SLH-DSA Reduced-Signature Parameter Sets</td>
+<td class="center">SLH-DSA-FEW for X.509</td>
 <td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Kousidis</td>
-<td class="center">Expires 6 May 2027</td>
+<td class="left">Bashiri, et al.</td>
+<td class="center">Expires 14 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1056,7 +1066,7 @@ svg {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">LAMPS Working Group</dd>
+<dd class="workgroup">Limited Additional Mechanisms for PKIX and SMIME</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-kousidis-lamps-x509-slhdsa-fewsigs-latest</dd>
 <dt class="label-updates">Updates:</dt>
@@ -1064,25 +1074,43 @@ svg {
 <a href="https://www.rfc-editor.org/rfc/rfc9909" class="eref">9909</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-11-02" class="published">2 November 2026</time>
+<time datetime="2026-11-10" class="published">10 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-06">6 May 2027</time></dd>
-<dt class="label-authors">Author:</dt>
+<dd class="expires"><time datetime="2027-05-14">14 May 2027</time></dd>
+<dt class="label-authors">Authors:</dt>
 <dd class="authors">
+<div class="author">
+      <div class="author-name">K. Bashiri</div>
+<div class="org">BSI</div>
+</div>
+<div class="author">
+      <div class="author-name">F. Knopp</div>
+<div class="org">BSI</div>
+</div>
 <div class="author">
       <div class="author-name">S. Kousidis</div>
 <div class="org">TH Köln</div>
 </div>
+<div class="author">
+      <div class="author-name">D. V. Geest</div>
+<div class="org">CryptoNext Security</div>
+</div>
 </dd>
 </dl>
 </div>
-<h1 id="title">Internet X.509 Public Key Infrastructure: Algorithm Identifiers for SLH-DSA Parameter Sets with a Reduced Number of Signatures</h1>
+<h1 id="title">Internet X.509 Public Key Infrastructure: Algorithm Identifiers for SLH-DSA with a Limited Number of Signatures (SLH-DSA-FEW)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO Abstract<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">RFC 9909 specifies the conventions for using the Stateless Hash-Based
+Digital Signature Algorithm (SLH-DSA) in the X.509 Public Key
+Infrastructure. NIST SP 800-230 adds six SLH-DSA parameter sets that are
+restricted to at most 2^24 signatures per signing key. The security of these parameters depends on adhering to this limit.
+This document specifies the algorithm identifiers for these parameter
+sets in X.509 and updates RFC 9909 to address the much lower signature
+limit.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1094,7 +1122,7 @@ svg {
         Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-kousidis-lamps-x509-slhdsa-fewsigs/">https://datatracker.ietf.org/doc/draft-kousidis-lamps-x509-slhdsa-fewsigs/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">
         Discussion of this document takes place on the
-        LAMPS Working Group mailing list (<span><a href="mailto:spasm@ietf.org">mailto:spasm@ietf.org</a></span>),
+        Limited Additional Mechanisms for PKIX and SMIME Working Group mailing list (<span><a href="mailto:spasm@ietf.org">mailto:spasm@ietf.org</a></span>),
         which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/spasm/">https://mailarchive.ietf.org/arch/browse/spasm/</a></span>.
         Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/spasm/">https://www.ietf.org/mailman/listinfo/spasm/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 <p id="section-note.1-4">Source for this draft and an issue tracker can be found at
@@ -1119,7 +1147,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1150,24 +1178,55 @@ svg {
 <nav class="toc"><ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-notation" class="internal xref">Notation</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-algorithm-identifiers" class="internal xref">Algorithm Identifiers</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-use-in-x509" class="internal xref">Use in X.509</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-asn1-module" class="internal xref">ASN.1 Module</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-security-strengths" class="internal xref">Security Strengths</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1178,7 +1237,78 @@ svg {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">TODO Introduction<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1"><span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span> defines the conventions for the use of the twelve SLH-DSA
+parameter sets of <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span> in the X.509 Public Key Infrastructure.
+These parameter sets are designed to be secure for up to 2^64 signatures
+per key, which is the reason for their large signatures of 7,856 to
+49,856 bytes.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2"><span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span> specifies six additional parameter sets for NIST security
+categories 1, 3, and 5 that reduce signature size and verification time
+by limiting a signing key to 2^24 (16,777,216) signatures; see <span>[<a href="#KP22" class="cite xref">KP22</a>]</span>
+and <span>[<a href="#FD24" class="cite xref">FD24</a>]</span> for background. The resulting signatures are 3,856, 7,752,
+and 14,944 bytes long, while signing is less efficient than with the parameter
+sets of <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span>. If a key is used to generate more than 2^24
+signatures, its security is no longer guaranteed to meet the security
+category of its parameter set.
+<span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span> names signing of software, firmware, and
+digital certificates as the intended use cases, and states that these
+parameter sets are not approved for general-purpose use.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This document refers to these additional parameter sets as SLH-DSA-FEW.
+The corresponding pure version is referred to as Pure SLH-DSA-FEW, and
+the pre-hash version as HashSLH-DSA-FEW. The signature algorithms are
+those of <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span>; only the parameter sets differ.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This document:<a href="#section-1-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-1-5.1">
+          <p id="section-1-5.1.1">defines the algorithm identifiers for the six SLH-DSA-FEW parameter
+sets, for both Pure SLH-DSA-FEW and HashSLH-DSA-FEW (<a href="#sec-alg-ids" class="auto internal xref">Section 3</a>),<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-1-5.2">
+          <p id="section-1-5.2.1">specifies how the conventions of <span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span> apply to them
+(<a href="#sec-use" class="auto internal xref">Section 4</a>),<a href="#section-1-5.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-1-5.3">
+          <p id="section-1-5.3.1">defines the associated ASN.1 module (<a href="#sec-asn1" class="auto internal xref">Appendix A</a>), and<a href="#section-1-5.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-1-5.4">
+          <p id="section-1-5.4.1">updates the Operational Considerations and Security Considerations of
+<span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span> to address the 2^24 signature limit (<a href="#sec-ops" class="auto internal xref">Section 5</a> and
+<a href="#sec-cons" class="auto internal xref">Section 6</a>).<a href="#section-1-5.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<aside id="section-1-6">
+        <p id="section-1-6.1">EDITOR'S NOTE: Open issues for this version:<a href="#section-1-6.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-1-6.2.1">
+            <p id="section-1-6.2.1.1">The object identifiers are to be assigned by NIST in <span>[<a href="#CSOR" class="cite xref">CSOR</a>]</span>.<a href="#section-1-6.2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-1-6.2.2">
+            <p id="section-1-6.2.2.1"><span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span> is an initial public draft. The parameter set names, the
+values in <a href="#tab-strengths" class="auto internal xref">Table 1</a>, and the signature limit need to be
+re-verified against the final publication.<a href="#section-1-6.2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-1-6.2.3">
+            <p id="section-1-6.2.3.1">Whether HashSLH-DSA-FEW identifiers are needed, and whether NIST will
+assign OIDs for them in <span>[<a href="#CSOR" class="cite xref">CSOR</a>]</span>, remains open. Their names, number,
+and pre-hash function pairings in <a href="#sec-alg-ids" class="auto internal xref">Section 3</a> are provisional.<a href="#section-1-6.2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-1-6.2.4">
+            <p id="section-1-6.2.4.1">Whether CMS <span>[<a href="#RFC9814" class="cite xref">RFC9814</a>]</span> is covered in this document or a separate one
+is to be discussed in the LAMPS Working Group.<a href="#section-1-6.2.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</aside>
+<div id="notation">
+<section id="section-1.1">
+        <h3 id="name-notation">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-notation" class="section-name selfRef">Notation</a>
+        </h3>
+<p id="section-1.1-1"><code>id-slh-dsa-*-24</code>: A shorthand to refer to all six OIDs used to specify the
+different parameter combinations for Pure SLH-DSA-FEW.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<p id="section-1.1-2"><code>id-hash-slh-dsa-*-24-*</code>: A shorthand to refer to all six OIDs used to
+specify the different parameter combinations for HashSLH-DSA-FEW.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1190,64 +1320,722 @@ svg {
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">Terms and notation not defined here, such as Pure SLH-DSA and
+HashSLH-DSA, are as defined in <span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security">
+<div id="sec-alg-ids">
 <section id="section-3">
-      <h2 id="name-security-considerations">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      <h2 id="name-algorithm-identifiers">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-algorithm-identifiers" class="section-name selfRef">Algorithm Identifiers</a>
       </h2>
-<p id="section-3-1">TODO Security<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">The AlgorithmIdentifier type and the meaning of its fields are as
+described in <span><a href="https://rfc-editor.org/rfc/rfc9909#section-3" class="relref">Section 3</a> of [<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">The object identifiers for the SLH-DSA-FEW parameter sets are to be
+defined by NIST in the Computer Security Objects Register <span>[<a href="#CSOR" class="cite xref">CSOR</a>]</span>. The
+same algorithm identifiers are used for identifying a public key, a
+private key, and a signature. As in <span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>, there are separate
+identifiers for Pure SLH-DSA-FEW and HashSLH-DSA-FEW.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">The Pure SLH-DSA-FEW OIDs are:<a href="#section-3-3" class="pilcrow">¶</a></p>
+<div class="lang-asn.1 sourcecode" id="section-3-4">
+<pre>
+   nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
+     country(16) us(840) organization(1) gov(101) csor(3) 4 }
+
+   sigAlgs OBJECT IDENTIFIER ::= { nistAlgorithms 3 }
+
+   id-slh-dsa-sha2-128-24 OBJECT IDENTIFIER ::= { sigAlgs TBD1 }
+
+   id-slh-dsa-shake-128-24 OBJECT IDENTIFIER ::= { sigAlgs TBD2 }
+
+   id-slh-dsa-sha2-192-24 OBJECT IDENTIFIER ::= { sigAlgs TBD3 }
+
+   id-slh-dsa-shake-192-24 OBJECT IDENTIFIER ::= { sigAlgs TBD4 }
+
+   id-slh-dsa-sha2-256-24 OBJECT IDENTIFIER ::= { sigAlgs TBD5 }
+
+   id-slh-dsa-shake-256-24 OBJECT IDENTIFIER ::= { sigAlgs TBD6 }
+</pre><a href="#section-3-4" class="pilcrow">¶</a>
+</div>
+<p id="section-3-5">The HashSLH-DSA-FEW OIDs are:<a href="#section-3-5" class="pilcrow">¶</a></p>
+<div class="lang-asn.1 sourcecode" id="section-3-6">
+<pre>
+   id-hash-slh-dsa-sha2-128-24-with-sha256 OBJECT IDENTIFIER ::= {
+      sigAlgs TBD7 }
+
+   id-hash-slh-dsa-shake-128-24-with-shake128 OBJECT IDENTIFIER ::= {
+      sigAlgs TBD8 }
+
+   id-hash-slh-dsa-sha2-192-24-with-sha512 OBJECT IDENTIFIER ::= {
+      sigAlgs TBD9 }
+
+   id-hash-slh-dsa-shake-192-24-with-shake256 OBJECT IDENTIFIER ::= {
+      sigAlgs TBD10 }
+
+   id-hash-slh-dsa-sha2-256-24-with-sha512 OBJECT IDENTIFIER ::= {
+      sigAlgs TBD11 }
+
+   id-hash-slh-dsa-shake-256-24-with-shake256 OBJECT IDENTIFIER ::= {
+      sigAlgs TBD12 }
+</pre><a href="#section-3-6" class="pilcrow">¶</a>
+</div>
+<p id="section-3-7">Each OID identifies the corresponding parameter set of Table 1 in
+<span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span>; for example, id-slh-dsa-shake-192-24 identifies
+SLH-DSA-SHAKE-192-24. The pre-hash functions follow the pairing used in
+<span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>: SHA-256 for the SHA2 128-bit parameter set, SHA-512 for the
+SHA2 192-bit and 256-bit parameter sets, SHAKE128 for the SHAKE 128-bit
+parameter set, and SHAKE256 for the SHAKE 192-bit and 256-bit parameter
+sets.<a href="#section-3-7" class="pilcrow">¶</a></p>
+<aside id="section-3-8">
+        <p id="section-3-8.1">RFC EDITOR: Please replace TBD1 through TBD12 throughout this document
+with the values assigned by NIST in <span>[<a href="#CSOR" class="cite xref">CSOR</a>]</span>, and remove this note.<a href="#section-3-8.1" class="pilcrow">¶</a></p>
+</aside>
+<p id="section-3-9">The contents of the parameters component for each algorithm <span class="bcp14">MUST</span> be
+absent.<a href="#section-3-9" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-use">
+<section id="section-4">
+      <h2 id="name-use-in-x509">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-use-in-x509" class="section-name selfRef">Use in X.509</a>
+      </h2>
+<p id="section-4-1">The following sections of <span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span> apply to the <code>id-slh-dsa-*-24</code> and
+<code>id-hash-slh-dsa-*-24-*</code> object identifiers in the same way as to the
+<code>id-slh-dsa-*</code> and <code>id-hash-slh-dsa-*</code> object identifiers, respectively,
+with the sizes in <a href="#tab-strengths" class="auto internal xref">Table 1</a>:<a href="#section-4-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4-2.1">
+          <p id="section-4-2.1.1">SLH-DSA Signatures (<span><a href="https://rfc-editor.org/rfc/rfc9909#section-4" class="relref">Section 4</a> of [<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>). Signatures are generated
+and verified with the algorithms of <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span> named there, using the
+parameter set identified by the algorithm identifier and the empty
+context string, and are encoded as the raw octet string
+R || SIG_FORS || SIG_HT.<a href="#section-4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-2.2">
+          <p id="section-4-2.2.1">Subject Public Key Fields (<span><a href="https://rfc-editor.org/rfc/rfc9909#section-5" class="relref">Section 5</a> of [<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>). The
+AlgorithmIdentifier for an SLH-DSA-FEW public key <span class="bcp14">MUST</span> use one of the
+<code>id-slh-dsa-*-24</code> or <code>id-hash-slh-dsa-*-24-*</code> object identifiers from
+<a href="#sec-alg-ids" class="auto internal xref">Section 3</a>, and its parameters field <span class="bcp14">MUST</span> be absent. The public key
+identifiers are defined in <a href="#sec-asn1" class="auto internal xref">Appendix A</a>.<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-2.3">
+          <p id="section-4-2.3.1">Key Usage Bits (<span><a href="https://rfc-editor.org/rfc/rfc9909#section-6" class="relref">Section 6</a> of [<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>). The requirements apply to
+certificates that indicate an <code>id-slh-dsa-*-24</code> or <code>id-hash-slh-dsa-*-24-*</code>
+identifier in the SubjectPublicKeyInfo.<a href="#section-4-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-2.4">
+          <p id="section-4-2.4.1">Private Key Format (<span><a href="https://rfc-editor.org/rfc/rfc9909#section-7" class="relref">Section 7</a> of [<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>). The private key is the
+concatenation SK.seed || SK.prf || PK.seed || PK.root of length
+4*n bytes, where n is 16, 24, or 32, depending on the security
+category.<a href="#section-4-2.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-4-3">As in <span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>, a key identified by a Pure SLH-DSA-FEW OID is not
+permitted to be used with a HashSLH-DSA-FEW OID, and vice versa. A key
+pair generated for an SLH-DSA-FEW parameter set <span class="bcp14">MUST NOT</span> be used with
+any other parameter set, including the <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span> parameter set of the
+same security category and hash function.<a href="#section-4-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-ops">
+<section id="section-5">
+      <h2 id="name-operational-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
+      </h2>
+<p id="section-5-1">This section is in addition to the Operational Considerations of
+<span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>, whose note on the very large (2^64) number of signatures
+does not apply to SLH-DSA-FEW.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">Unlike the parameter sets of <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span>, an SLH-DSA-FEW parameter set
+limits a single signing key to 2^24 signatures (see <a href="#sec-cons" class="auto internal xref">Section 6</a>). This
+limit can be reached in some realistic use cases; for example, a key
+that produces one signature per second reaches it in about 194 days.
+The usage and security requirements in Section 3 of <span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span>
+apply; see also <a href="#sec-cons" class="auto internal xref">Section 6</a>.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">SLH-DSA-FEW is not suited for keys that sign on demand in response to
+external requests, such as keys used for authentication in interactive
+protocols (for example, in TLS handshakes) or OCSP responder keys.
+Unless the number of signatures generated with such a key can be
+bounded reliably, SLH-DSA-FEW <span class="bcp14">MUST NOT</span> be used for that key.<a href="#section-5-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-cons">
+<section id="section-6">
+      <h2 id="name-security-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-6-1">The Security Considerations of <span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span> apply, except as changed
+below. In addition, the usage and security requirements in Section 3 of
+<span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span> apply. In particular, a key pair for an SLH-DSA-FEW
+parameter set <span class="bcp14">MUST NOT</span> be used for more than 2^24 signing operations,
+instead of the 2^64 stated in <span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">Beyond 2^24 signatures, the security of the key is no longer guaranteed
+to meet the security category listed in <a href="#tab-strengths" class="auto internal xref">Table 1</a>. A relying
+party cannot detect that the limit has been exceeded: neither a
+certificate nor a signature reveals how many signatures have been
+generated with a key, and a forgery made possible by exceeding the limit
+is indistinguishable from a genuine signature.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">If the evaluation of the operational environment required by Section 3
+of <span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span> and the operational controls cannot guarantee that no
+more than 2^24 signatures will be generated with a key, SLH-DSA-FEW <span class="bcp14">MUST NOT</span> be used for that key; the parameter sets of <span>[<a href="#FIPS205" class="cite xref">FIPS205</a>]</span> can be used
+instead.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">All signing operations made with the key count against the limit.
+For a CA key, this
+includes signatures on certificates, CRLs, and, if the CA key is also
+used for this purpose, OCSP responses.
+Because of this, SLH-DSA-FEW is best suited to keys that sign few
+objects, for example a code signing key or a CA key with a low issuance
+volume.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-5">According to <span>[<a href="#SP800-230" class="cite xref">SP800-230</a>]</span>, caching parts of or the whole SLH-DSA
+hypertree to speed up signing is permitted and does not affect the
+security properties of the algorithm. Cached values need to be
+protected against modification, since corrupted values lead to invalid
+signatures.<a href="#section-6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana">
-<section id="section-4">
+<section id="section-7">
       <h2 id="name-iana-considerations">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-4-1">This document has no IANA actions.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">For the ASN.1 module in <a href="#sec-asn1" class="auto internal xref">Appendix A</a>, IANA is requested to assign an
+object identifier (OID) for the module identifier (TBD0) with a
+Description of "id-mod-x509-slh-dsa-few-2026". The OID for the module
+should be allocated in the "SMI Security for PKIX Module Identifier"
+registry (1.3.6.1.5.5.7.0).<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">The object identifiers for the SLH-DSA-FEW parameter sets are assigned
+by NIST <span>[<a href="#CSOR" class="cite xref">CSOR</a>]</span> and not by IANA.<a href="#section-7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-normative-references">
-<section id="section-5">
-      <h2 id="name-normative-references">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<div id="sec-combined-references">
+<section id="section-8">
+      <h2 id="name-references">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
+<section id="section-8.1">
+        <h3 id="name-normative-references">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
+<dt id="CSOR">[CSOR]</dt>
+        <dd>
+<span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"Computer Security Objects Register"</span>, <span>&lt;<a href="https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration">https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="FIPS205">[FIPS205]</dt>
+        <dd>
+<span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"Stateless Hash-Based Digital Signature Standard"</span>, <span class="seriesInfo">FIPS PUB 205</span>, <time datetime="2024-08-13" class="refDate">13 August 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.205">https://doi.org/10.6028/NIST.FIPS.205</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC5280">[RFC5280]</dt>
+        <dd>
+<span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5280">https://www.rfc-editor.org/rfc/rfc5280</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5912">[RFC5912]</dt>
+        <dd>
+<span class="refAuthor">Hoffman, P.</span> and <span class="refAuthor">J. Schaad</span>, <span class="refTitle">"New ASN.1 Modules for the Public Key Infrastructure Using X.509 (PKIX)"</span>, <span class="seriesInfo">RFC 5912</span>, <span class="seriesInfo">DOI 10.17487/RFC5912</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5912">https://www.rfc-editor.org/rfc/rfc5912</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9909">[RFC9909]</dt>
-    <dd>
+        <dd>
 <span class="refAuthor">Bashiri, K.</span>, <span class="refAuthor">Fluhrer, S.</span>, <span class="refAuthor">Gazdag, S.</span>, <span class="refAuthor">Van Geest, D.</span>, and <span class="refAuthor">S. Kousidis</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure -- Algorithm Identifiers for the Stateless Hash-Based Digital Signature Algorithm (SLH-DSA)"</span>, <span class="seriesInfo">RFC 9909</span>, <span class="seriesInfo">DOI 10.17487/RFC9909</span>, <time datetime="2025-12" class="refDate">December 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9909">https://www.rfc-editor.org/rfc/rfc9909</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SP800-230">[SP800-230]</dt>
+        <dd>
+<span class="refAuthor">Dang, Q.</span> and <span class="refAuthor">D. Moody</span>, <span class="refTitle">"Additional SLH-DSA Parameter Sets for Limited-Signature Use Cases"</span>, <span class="seriesInfo">NIST SP 800-230 ipd (Initial Public Draft)</span>, <time datetime="2026-04-13" class="refDate">13 April 2026</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-230.ipd">https://doi.org/10.6028/NIST.SP.800-230.ipd</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="X680">[X680]</dt>
+        <dd>
+<span class="refAuthor">ITU-T</span>, <span class="refTitle">"Information technology - Abstract Syntax Notation One (ASN.1): Specification of basic notation"</span>, <span class="seriesInfo">ITU-T Recommendation X.680</span>, <span class="seriesInfo">ISO/IEC 8824-1:2021</span>, <time datetime="2021-02" class="refDate">February 2021</time>, <span>&lt;<a href="https://www.itu.int/rec/T-REC-X.680">https://www.itu.int/rec/T-REC-X.680</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="X690">[X690]</dt>
+      <dd>
+<span class="refAuthor">ITU-T</span>, <span class="refTitle">"Information technology - Abstract Syntax Notation One (ASN.1): ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)"</span>, <span class="seriesInfo">ITU-T Recommendation X.690</span>, <span class="seriesInfo">ISO/IEC 8825-1:2021</span>, <time datetime="2021-02" class="refDate">February 2021</time>, <span>&lt;<a href="https://www.itu.int/rec/T-REC-X.690">https://www.itu.int/rec/T-REC-X.690</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
 </div>
-<div id="acknowledgments">
+<div id="sec-informative-references">
+<section id="section-8.2">
+        <h3 id="name-informative-references">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="FD24">[FD24]</dt>
+        <dd>
+<span class="refAuthor">Fluhrer, S.</span> and <span class="refAuthor">Q. Dang</span>, <span class="refTitle">"Smaller SPHINCS+"</span>, <span class="seriesInfo">Cryptology ePrint Archive Paper 2024/018</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://eprint.iacr.org/2024/018">https://eprint.iacr.org/2024/018</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="KP22">[KP22]</dt>
+        <dd>
+<span class="refAuthor">Kölbl, S.</span> and <span class="refAuthor">J. Philipoom</span>, <span class="refTitle">"A note on SPHINCS+ parameter sets"</span>, <span class="seriesInfo">Cryptology ePrint Archive Paper 2022/1725</span>, <time datetime="2022" class="refDate">2022</time>, <span>&lt;<a href="https://eprint.iacr.org/2022/1725">https://eprint.iacr.org/2022/1725</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9814">[RFC9814]</dt>
+      <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Fluhrer, S.</span>, <span class="refAuthor">Kampanakis, P.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">RFC 9814</span>, <span class="seriesInfo">DOI 10.17487/RFC9814</span>, <time datetime="2025-07" class="refDate">July 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9814">https://www.rfc-editor.org/rfc/rfc9814</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="sec-asn1">
 <section id="appendix-A">
+      <h2 id="name-asn1-module">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-asn1-module" class="section-name selfRef">ASN.1 Module</a>
+      </h2>
+<p id="appendix-A-1">This appendix includes the ASN.1 module <span>[<a href="#X680" class="cite xref">X680</a>]</span> for SLH-DSA-FEW. Note
+that as per <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, certificates use the Distinguished Encoding
+Rules; see <span>[<a href="#X690" class="cite xref">X690</a>]</span>. This module imports objects from <span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span>.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<div class="breakable lang-asn.1 sourcecode" id="appendix-A-2">
+<pre>
+&lt;CODE BEGINS&gt;
+X509-SLH-DSA-FEW-Module-2026
+  { iso(1) identified-organization(3) dod(6) internet(1) security(5)
+    mechanisms(5) pkix(7) id-mod(0)
+    id-mod-x509-slh-dsa-few-2026(TBD0) }
+
+DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+EXPORTS ALL;
+
+IMPORTS
+  PUBLIC-KEY, SIGNATURE-ALGORITHM, SMIME-CAPS
+    FROM AlgorithmInformation-2009  -- in [RFC5912]
+    { iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) id-mod(0)
+      id-mod-algorithmInformation-02(58) } ;
+
+--
+-- Object identifiers for the SLH-DSA-FEW parameter sets; see
+-- [SP800-230]. TBD1 to TBD12 are to be assigned by NIST in [CSOR].
+--
+
+nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-itu-t(2)
+  country(16) us(840) organization(1) gov(101) csor(3) 4 }
+
+sigAlgs OBJECT IDENTIFIER ::= { nistAlgorithms 3 }
+
+--
+-- Pure SLH-DSA-FEW object identifiers
+--
+
+id-slh-dsa-sha2-128-24 OBJECT IDENTIFIER ::= { sigAlgs TBD1 }
+
+id-slh-dsa-shake-128-24 OBJECT IDENTIFIER ::= { sigAlgs TBD2 }
+
+id-slh-dsa-sha2-192-24 OBJECT IDENTIFIER ::= { sigAlgs TBD3 }
+
+id-slh-dsa-shake-192-24 OBJECT IDENTIFIER ::= { sigAlgs TBD4 }
+
+id-slh-dsa-sha2-256-24 OBJECT IDENTIFIER ::= { sigAlgs TBD5 }
+
+id-slh-dsa-shake-256-24 OBJECT IDENTIFIER ::= { sigAlgs TBD6 }
+
+--
+-- HashSLH-DSA-FEW object identifiers
+--
+
+id-hash-slh-dsa-sha2-128-24-with-sha256 OBJECT IDENTIFIER ::= {
+  sigAlgs TBD7 }
+
+id-hash-slh-dsa-shake-128-24-with-shake128 OBJECT IDENTIFIER ::= {
+  sigAlgs TBD8 }
+
+id-hash-slh-dsa-sha2-192-24-with-sha512 OBJECT IDENTIFIER ::= {
+  sigAlgs TBD9 }
+
+id-hash-slh-dsa-shake-192-24-with-shake256 OBJECT IDENTIFIER ::= {
+  sigAlgs TBD10 }
+
+id-hash-slh-dsa-sha2-256-24-with-sha512 OBJECT IDENTIFIER ::= {
+  sigAlgs TBD11 }
+
+id-hash-slh-dsa-shake-256-24-with-shake256 OBJECT IDENTIFIER ::= {
+  sigAlgs TBD12 }
+
+--
+-- Pure SLH-DSA-FEW public key identifiers
+--
+
+pk-slh-dsa-sha2-128-24 PUBLIC-KEY ::= {
+  IDENTIFIER id-slh-dsa-sha2-128-24
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+pk-slh-dsa-shake-128-24 PUBLIC-KEY ::= {
+  IDENTIFIER id-slh-dsa-shake-128-24
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+pk-slh-dsa-sha2-192-24 PUBLIC-KEY ::= {
+  IDENTIFIER id-slh-dsa-sha2-192-24
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+pk-slh-dsa-shake-192-24 PUBLIC-KEY ::= {
+  IDENTIFIER id-slh-dsa-shake-192-24
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+pk-slh-dsa-sha2-256-24 PUBLIC-KEY ::= {
+  IDENTIFIER id-slh-dsa-sha2-256-24
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+pk-slh-dsa-shake-256-24 PUBLIC-KEY ::= {
+  IDENTIFIER id-slh-dsa-shake-256-24
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+--
+-- HashSLH-DSA-FEW public key identifiers
+--
+
+pk-hash-slh-dsa-sha2-128-24-with-sha256 PUBLIC-KEY ::= {
+  IDENTIFIER id-hash-slh-dsa-sha2-128-24-with-sha256
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+pk-hash-slh-dsa-shake-128-24-with-shake128 PUBLIC-KEY ::= {
+  IDENTIFIER id-hash-slh-dsa-shake-128-24-with-shake128
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+pk-hash-slh-dsa-sha2-192-24-with-sha512 PUBLIC-KEY ::= {
+  IDENTIFIER id-hash-slh-dsa-sha2-192-24-with-sha512
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+pk-hash-slh-dsa-shake-192-24-with-shake256 PUBLIC-KEY ::= {
+  IDENTIFIER id-hash-slh-dsa-shake-192-24-with-shake256
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+pk-hash-slh-dsa-sha2-256-24-with-sha512 PUBLIC-KEY ::= {
+  IDENTIFIER id-hash-slh-dsa-sha2-256-24-with-sha512
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+pk-hash-slh-dsa-shake-256-24-with-shake256 PUBLIC-KEY ::= {
+  IDENTIFIER id-hash-slh-dsa-shake-256-24-with-shake256
+  -- KEY no ASN.1 wrapping --
+  CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+  -- PRIVATE-KEY no ASN.1 wrapping -- }
+
+--
+-- Pure SLH-DSA-FEW signature algorithm identifiers
+--
+
+sa-slh-dsa-sha2-128-24 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-slh-dsa-sha2-128-24
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-slh-dsa-sha2-128-24 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-slh-dsa-sha2-128-24 } }
+
+sa-slh-dsa-shake-128-24 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-slh-dsa-shake-128-24
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-slh-dsa-shake-128-24 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-slh-dsa-shake-128-24 } }
+
+sa-slh-dsa-sha2-192-24 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-slh-dsa-sha2-192-24
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-slh-dsa-sha2-192-24 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-slh-dsa-sha2-192-24 } }
+
+sa-slh-dsa-shake-192-24 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-slh-dsa-shake-192-24
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-slh-dsa-shake-192-24 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-slh-dsa-shake-192-24 } }
+
+sa-slh-dsa-sha2-256-24 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-slh-dsa-sha2-256-24
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-slh-dsa-sha2-256-24 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-slh-dsa-sha2-256-24 } }
+
+sa-slh-dsa-shake-256-24 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-slh-dsa-shake-256-24
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-slh-dsa-shake-256-24 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-slh-dsa-shake-256-24 } }
+
+--
+-- HashSLH-DSA-FEW signature algorithm identifiers
+--
+
+sa-hash-slh-dsa-sha2-128-24-with-sha256 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-hash-slh-dsa-sha2-128-24-with-sha256
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-hash-slh-dsa-sha2-128-24-with-sha256 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-hash-slh-dsa-sha2-128-24-with-sha256 } }
+
+sa-hash-slh-dsa-shake-128-24-with-shake128 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-hash-slh-dsa-shake-128-24-with-shake128
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-hash-slh-dsa-shake-128-24-with-shake128 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-hash-slh-dsa-shake-128-24-with-shake128 } }
+
+sa-hash-slh-dsa-sha2-192-24-with-sha512 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-hash-slh-dsa-sha2-192-24-with-sha512
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-hash-slh-dsa-sha2-192-24-with-sha512 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-hash-slh-dsa-sha2-192-24-with-sha512 } }
+
+sa-hash-slh-dsa-shake-192-24-with-shake256 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-hash-slh-dsa-shake-192-24-with-shake256
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-hash-slh-dsa-shake-192-24-with-shake256 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-hash-slh-dsa-shake-192-24-with-shake256 } }
+
+sa-hash-slh-dsa-sha2-256-24-with-sha512 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-hash-slh-dsa-sha2-256-24-with-sha512
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-hash-slh-dsa-sha2-256-24-with-sha512 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-hash-slh-dsa-sha2-256-24-with-sha512 } }
+
+sa-hash-slh-dsa-shake-256-24-with-shake256 SIGNATURE-ALGORITHM ::= {
+  IDENTIFIER id-hash-slh-dsa-shake-256-24-with-shake256
+  PARAMS ARE absent
+  PUBLIC-KEYS { pk-hash-slh-dsa-shake-256-24-with-shake256 }
+  SMIME-CAPS {
+    IDENTIFIED BY id-hash-slh-dsa-shake-256-24-with-shake256 } }
+
+--
+-- Expand SignatureAlgorithms from [RFC5912]
+--
+
+SignatureAlgorithms SIGNATURE-ALGORITHM ::= {
+  sa-slh-dsa-sha2-128-24 |
+  sa-slh-dsa-shake-128-24 |
+  sa-slh-dsa-sha2-192-24 |
+  sa-slh-dsa-shake-192-24 |
+  sa-slh-dsa-sha2-256-24 |
+  sa-slh-dsa-shake-256-24 |
+  sa-hash-slh-dsa-sha2-128-24-with-sha256 |
+  sa-hash-slh-dsa-shake-128-24-with-shake128 |
+  sa-hash-slh-dsa-sha2-192-24-with-sha512 |
+  sa-hash-slh-dsa-shake-192-24-with-shake256 |
+  sa-hash-slh-dsa-sha2-256-24-with-sha512 |
+  sa-hash-slh-dsa-shake-256-24-with-shake256,
+  ... }
+
+--
+-- Expand SMimeCaps from [RFC5912]
+--
+
+SMimeCaps SMIME-CAPS ::= {
+  sa-slh-dsa-sha2-128-24.&amp;smimeCaps |
+  sa-slh-dsa-shake-128-24.&amp;smimeCaps |
+  sa-slh-dsa-sha2-192-24.&amp;smimeCaps |
+  sa-slh-dsa-shake-192-24.&amp;smimeCaps |
+  sa-slh-dsa-sha2-256-24.&amp;smimeCaps |
+  sa-slh-dsa-shake-256-24.&amp;smimeCaps |
+  sa-hash-slh-dsa-sha2-128-24-with-sha256.&amp;smimeCaps |
+  sa-hash-slh-dsa-shake-128-24-with-shake128.&amp;smimeCaps |
+  sa-hash-slh-dsa-sha2-192-24-with-sha512.&amp;smimeCaps |
+  sa-hash-slh-dsa-shake-192-24-with-shake256.&amp;smimeCaps |
+  sa-hash-slh-dsa-sha2-256-24-with-sha512.&amp;smimeCaps |
+  sa-hash-slh-dsa-shake-256-24-with-shake256.&amp;smimeCaps,
+  ... }
+
+--
+-- Expand PublicKeyAlgorithms from [RFC5912]
+--
+
+PublicKeyAlgorithms PUBLIC-KEY ::= {
+  pk-slh-dsa-sha2-128-24 |
+  pk-slh-dsa-shake-128-24 |
+  pk-slh-dsa-sha2-192-24 |
+  pk-slh-dsa-shake-192-24 |
+  pk-slh-dsa-sha2-256-24 |
+  pk-slh-dsa-shake-256-24 |
+  pk-hash-slh-dsa-sha2-128-24-with-sha256 |
+  pk-hash-slh-dsa-shake-128-24-with-shake128 |
+  pk-hash-slh-dsa-sha2-192-24-with-sha512 |
+  pk-hash-slh-dsa-shake-192-24-with-shake256 |
+  pk-hash-slh-dsa-sha2-256-24-with-sha512 |
+  pk-hash-slh-dsa-shake-256-24-with-shake256,
+  ... }
+
+END
+&lt;CODE ENDS&gt;
+</pre><a href="#appendix-A-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="security-strengths">
+<section id="appendix-B">
+      <h2 id="name-security-strengths">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-security-strengths" class="section-name selfRef">Security Strengths</a>
+      </h2>
+<p id="appendix-B-1">The SLH-DSA-FEW parameter sets are defined for NIST security categories
+1, 3, and 5; see <span><a href="https://rfc-editor.org/rfc/rfc9909#appendix-B" class="relref">Appendix B</a> of [<a href="#RFC9909" class="cite xref">RFC9909</a>]</span> for the definition of the
+categories. The resulting signature, public key, and private key sizes in
+bytes are listed in <a href="#tab-strengths" class="auto internal xref">Table 1</a>. The HashSLH-DSA-FEW parameter
+sets have the same values as the Pure SLH-DSA-FEW equivalents. These
+parameter sets are only secure for up to 2^24 signatures per key; see
+<a href="#sec-cons" class="auto internal xref">Section 6</a>.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<span id="name-slh-dsa-few-security-streng"></span><div id="tab-strengths">
+<table class="center" id="table-1">
+        <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-slh-dsa-few-security-streng" class="selfRef">SLH-DSA-FEW Security Strengths</a>
+        </caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">OID</th>
+            <th class="text-left" rowspan="1" colspan="1">NIST Category</th>
+            <th class="text-left" rowspan="1" colspan="1">Sig.</th>
+            <th class="text-left" rowspan="1" colspan="1">Pub. Key</th>
+            <th class="text-left" rowspan="1" colspan="1">Priv. Key</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-(hash-)slh-dsa-sha2-128-24</td>
+            <td class="text-left" rowspan="1" colspan="1">1</td>
+            <td class="text-left" rowspan="1" colspan="1">3856</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+            <td class="text-left" rowspan="1" colspan="1">64</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-(hash-)slh-dsa-shake-128-24</td>
+            <td class="text-left" rowspan="1" colspan="1">1</td>
+            <td class="text-left" rowspan="1" colspan="1">3856</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+            <td class="text-left" rowspan="1" colspan="1">64</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-(hash-)slh-dsa-sha2-192-24</td>
+            <td class="text-left" rowspan="1" colspan="1">3</td>
+            <td class="text-left" rowspan="1" colspan="1">7752</td>
+            <td class="text-left" rowspan="1" colspan="1">48</td>
+            <td class="text-left" rowspan="1" colspan="1">96</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-(hash-)slh-dsa-shake-192-24</td>
+            <td class="text-left" rowspan="1" colspan="1">3</td>
+            <td class="text-left" rowspan="1" colspan="1">7752</td>
+            <td class="text-left" rowspan="1" colspan="1">48</td>
+            <td class="text-left" rowspan="1" colspan="1">96</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-(hash-)slh-dsa-sha2-256-24</td>
+            <td class="text-left" rowspan="1" colspan="1">5</td>
+            <td class="text-left" rowspan="1" colspan="1">14944</td>
+            <td class="text-left" rowspan="1" colspan="1">64</td>
+            <td class="text-left" rowspan="1" colspan="1">128</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-(hash-)slh-dsa-shake-256-24</td>
+            <td class="text-left" rowspan="1" colspan="1">5</td>
+            <td class="text-left" rowspan="1" colspan="1">14944</td>
+            <td class="text-left" rowspan="1" colspan="1">64</td>
+            <td class="text-left" rowspan="1" colspan="1">128</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+</section>
+</div>
+<div id="examples">
+<section id="appendix-C">
+      <h2 id="name-examples">
+<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
+      </h2>
+<aside id="appendix-C-1">
+        <p id="appendix-C-1.1">EDITOR'S NOTE: Examples of a public key, a private key, and a
+self-signed certificate will be added once the object identifiers are
+assigned and implementations of the parameter sets are available.<a href="#appendix-C-1.1" class="pilcrow">¶</a></p>
+</aside>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-D">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">TODO acknowledge.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-D-1">Much of the structure and text of this document is taken from
+<span>[<a href="#RFC9909" class="cite xref">RFC9909</a>]</span>. Thanks to its authors and contributors.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-B">
-      <h2 id="name-authors-address">
-<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+<section id="appendix-E">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Kaveh Bashiri</span></div>
+<div dir="auto" class="left"><span class="org">BSI</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:kaveh.bashiri.ietf@gmail.com" class="email">kaveh.bashiri.ietf@gmail.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Felix Knopp</span></div>
+<div dir="auto" class="left"><span class="org">BSI</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:felix.knopp.ietf@proton.me" class="email">felix.knopp.ietf@proton.me</a>
+</div>
+</address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Stavros Kousidis</span></div>
 <div dir="auto" class="left"><span class="org">TH Köln</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:stavros.kousidis@th-koeln.de" class="email">stavros.kousidis@th-koeln.de</a>
+<a href="mailto:kousidis.ietf@gmail.com" class="email">kousidis.ietf@gmail.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Daniel Van Geest</span></div>
+<div dir="auto" class="left"><span class="org">CryptoNext Security</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:daniel.vangeest@cryptonext-security.com" class="email">daniel.vangeest@cryptonext-security.com</a>
 </div>
 </address>
 </section>
