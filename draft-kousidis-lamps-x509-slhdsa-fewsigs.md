@@ -174,6 +174,9 @@ EDITOR'S NOTE: Open issues for this version:
 * {{SP800-230}} is an initial public draft. The parameter set names, the
   values in {{tab-strengths}}, and the signature limit need to be
   re-verified against the final publication.
+* Whether HashSLH-DSA-FEW identifiers are needed, and whether NIST will
+  assign OIDs for them in {{CSOR}}, remains open. Their names, number,
+  and pre-hash function pairings in {{sec-alg-ids}} are provisional.
 * Whether CMS {{RFC9814}} is covered in this document or a separate one
   is to be discussed in the LAMPS Working Group.
 </aside>
