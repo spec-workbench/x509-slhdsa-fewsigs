@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-10T06:39:44.343586+00:00",
+  "timestamp": "2026-11-12T06:30:15.052573+00:00",
   "repo": "spec-workbench/x509-slhdsa-fewsigs",
   "labels": [
     {
@@ -61,26 +61,28 @@
       "id": "PR_kwDOVgM2N88AAAABMVLksA",
       "title": "Initial content: SLH-DSA-FEW (SP 800-230) for X.509",
       "url": "https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "fluppe2",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
         "fluppe2"
       ],
       "labels": [],
-      "body": "First full draft text, merging two sources:\n\n- RFC 9909 (FelixKnopp/x509-slhdsa@b3b216f) as the base\n- Felix's draft on branch `add-slh-dsa-24-parameter-sets` (FelixKnopp/x509-slhdsa@811cd19)\n\n## Contents\n- Pure and HashSLH-DSA-FEW OIDs (`TBD1`\u2013`TBD12`, to be assigned by NIST), in SP 800-230 order\n- \"Use in X.509\" section referring to RFC 9909 Sections 4\u20137\n- Operational and security considerations for the 2^24 signature limit: signature counting across HSMs/replicas, CA/CRL/OCSP, keys that sign on demand (TLS, OCSP) MUST use FIPS 205 parameter sets\n- Complete ASN.1 module (`asn1/X509-SLHDSA-FEW-2026.asn`) including `SignatureAlgorithms`, `SMimeCaps`, `PublicKeyAlgorithms`; module OID requested in the SMI PKIX module registry\n- Authors: Kaveh Bashiri, Felix Knopp, Stavros Kousidis\n- `CODEOWNERS` for `@spec-workbench/slhdsa-fewsigs-editors`, placeholder `examples/`\n\n## Changes compared to Felix's branch, please review\n- Removed the claim that security \"does not degrade gradually\" beyond the limit; replaced it with \"no longer guaranteed\" plus an editor's note. Please check against KP22 / SP 800-230.\n- Reworded \"signatures generated beyond the limit are indistinguishable from valid ones\" to refer to forgeries.\n- Fixed the ASN.1 module (`# Todo` line, module OID arc, missing `SignatureAlgorithms`/`SMimeCaps` sets, set name `PublicKeyAlgorithms`).\n- IANA: standard request in \"SMI Security for PKIX Module Identifier\" instead of \"to be determined\".\n\n## Open issues (editor's notes in the draft)\n- OIDs from NIST CSOR\n- Re-check against the final SP 800-230\n- HashSLH-DSA-FEW: needed? NIST OIDs?\n- CMS in this document or a separate one?\n\nBuilds cleanly; `make idnits` shows no errors (remaining warnings: RFC 5912 downref, which is in the downref registry, and `<CODE BEGINS>`, both as in RFC 9909).\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.com/claude-code)",
+      "body": "First full draft text, merging two sources:\r\n\r\n- RFC 9909 (FelixKnopp/x509-slhdsa@b3b216f) as the base\r\n- Felix's draft on branch `add-slh-dsa-24-parameter-sets` (FelixKnopp/x509-slhdsa@811cd19)\r\n\r\n## Contents\r\n- Pure and HashSLH-DSA-FEW OIDs (`TBD1`\u2013`TBD12`, to be assigned by NIST), in SP 800-230 order\r\n- \"Use in X.509\" section referring to RFC 9909 Sections 4\u20137\r\n- Operational and security considerations for the 2^24 signature limit: pointer to SP 800-230 Section 3, CA/CRL/OCSP; keys that sign on demand (TLS, OCSP) are not suited for SLH-DSA-FEW and MUST NOT use it unless the limit can be guaranteed (in line with SP 800-230 \u00a73)\r\n- Complete ASN.1 module (`asn1/X509-SLHDSA-FEW-2026.asn`) including `SignatureAlgorithms`, `SMimeCaps`, `PublicKeyAlgorithms`; module OID requested in the SMI PKIX module registry\r\n- Authors: Kaveh Bashiri, Felix Knopp, Stavros Kousidis\r\n- `CODEOWNERS` for `@spec-workbench/slhdsa-fewsigs-editors`, placeholder `examples/`\r\n\r\n## Changes compared to Felix's branch, please review\r\n- Removed the claim that security \"does not degrade gradually\" beyond the limit; replaced it with \"no longer guaranteed\" plus an editor's note. Please check against KP22 / SP 800-230.\r\n- Reworded \"signatures generated beyond the limit are indistinguishable from valid ones\" to refer to forgeries.\r\n- Fixed the ASN.1 module (`# Todo` line, module OID arc, missing `SignatureAlgorithms`/`SMimeCaps` sets, set name `PublicKeyAlgorithms`).\r\n- IANA: standard request in \"SMI Security for PKIX Module Identifier\" instead of \"to be determined\".\r\n\r\n## Open issues (editor's notes in the draft)\r\n- OIDs from NIST CSOR\r\n- Re-check against the final SP 800-230\r\n- HashSLH-DSA-FEW: needed? NIST OIDs?\r\n- CMS in this document or a separate one?\r\n\r\nBuilds cleanly; `make idnits` shows no errors (remaining warnings: RFC 5912 downref, which is in the downref registry, and `<CODE BEGINS>`, both as in RFC 9909).\r\n\r\n\ud83e\udd16 Generated with [Claude Code](https://claude.com/claude-code)",
       "createdAt": "2026-11-02T15:04:48Z",
-      "updatedAt": "2026-11-09T16:44:25Z",
+      "updatedAt": "2026-11-10T11:00:07Z",
       "baseRepository": "spec-workbench/x509-slhdsa-fewsigs",
       "baseRefName": "main",
       "baseRefOid": "1df633e7d71ef18928eacf616c4fe97af26a12ca",
       "headRepository": "spec-workbench/x509-slhdsa-fewsigs",
       "headRefName": "initial-content",
-      "headRefOid": "3369cc843ba068bf428a1f5c8c080c04a3a42e87",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "a5b077003352b1ea93b749fcd2b9c443cd966476",
+      "closedAt": "2026-11-10T11:00:07Z",
+      "mergedAt": "2026-11-10T11:00:07Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "262f229fcb8de2a684d37b5d6215cc17cc187745"
+      },
       "comments": [
         {
           "author": "fluppe2",
@@ -88,6 +90,20 @@
           "body": "Pushed one more editorial commit (on-demand MUST NOT, OCSP consistency, caching wording); please review both commits.",
           "createdAt": "2026-11-09T16:44:25Z",
           "updatedAt": "2026-11-09T16:44:25Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thanks, @BashiriK  and @FelixKnopp. I took your suggestions in the commit I just pushed, with a few corrections:\r\n\r\n- SP 800-230 has no Operational or Security Considerations sections. Its requirements are in Section 3, \u201cUsage and Security Requirements\u201d, so both places now refer to that section.\r\n- Applying the suggestions on lines 326\u2013329 and 330\u2013348 together would have cut a sentence short (\u201c\u2026 parameter set MUST NOT\u201d followed by \u201cIf the evaluation \u2026\u201d). The opening of the Security Considerations is now one paragraph. It points to RFC 9909 and SP 800-230 Section 3, and states the 2^24 MUST NOT as replacing the 2^64.\r\n- As you suggested, the evaluation list is gone. The remaining MUST NOT refers to the evaluation required by SP 800-230 Section 3.\r\n- I kept the paragraph saying that a relying party cannot detect an exceeded limit. That point is specific to X.509 and isn\u2019t in SP 800-230.\r\n- In the Operational Considerations, the lowercase \u201cmust not\u201d sentence is replaced by a pointer to Section 3, so we don\u2019t state the requirement once without and once with BCP 14 keywords.\r\n\r\nI\u2019ll resolve your suggestion threads. If this works for you, please (both) approve and I\u2019ll merge.",
+          "createdAt": "2026-11-10T10:48:39Z",
+          "updatedAt": "2026-11-10T10:48:39Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Both Copilot findings are addressed: the provisional OID/HashSLH-DSA-FEW caveat is back in the editor\u2019s note (0d48bfa), and the bounded-use exception for on-demand keys is intended and now matches the PR description.",
+          "createdAt": "2026-11-10T10:53:07Z",
+          "updatedAt": "2026-11-10T10:53:07Z"
         }
       ],
       "reviews": [
@@ -97,7 +113,7 @@
             "abbreviatedOid": "b30bfa2"
           },
           "author": "copilot-pull-request-reviewer",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udfe1 Changes recommended\n\nThe draft overstates security degradation and relies on certificate expiration to bound key use, while the generation workflow would overwrite the intended CODEOWNERS rule.\n\n<details open>\n<summary><strong>4 open issues</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Prevent generated-file updates from overwriting the team rule](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323242) \u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Base key retirement on signature budget and enforce it for every copy](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323356) \u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Describe security as no longer guaranteed beyond the 2^24 limit](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323425) \u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-light.png\" alt=\"Low severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Preserve wildcard markers in the rendered OID shorthand](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323480) \u00b7 New\n</details>\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nAdds the first substantive SLH-DSA-FEW draft for X.509, extending RFC 9909 conventions to SP 800-230 parameter sets limited to 2^24 signatures per key.\n\n**Changes:**\n- Defines proposed Pure and HashSLH-DSA-FEW identifiers, X.509 usage, and key/signature sizes.\n- Documents signature-counting requirements and operational and security considerations.\n- Adds ASN.1 generation and consistency checks, editor ownership, and example scaffolding.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| `examples/\u200bREADME.md` | Outlines reproducible examples and their prerequisites. |\r\n| `draft-kousidis-lamps-x509-slhdsa-fewsigs.md` | Replaces placeholders with the full draft specification. |\r\n| `asn1/\u200bX509-SLHDSA-FEW-2026.asn` | Adds algorithm identifiers and associated ASN.1 object sets. |\r\n| `asn1/\u200bgen.py` | Generates the ASN.1 module and checks for drift. |\r\n| `.github/\u200bworkflows/\u200basn1.yml` | Runs the generated-module consistency check. |\r\n| `.github/\u200bCODEOWNERS` | Assigns all-file review ownership to the editors team. |\n</details>\n\n<sub>Review effort: Max</sub>",
           "createdAt": "2026-11-03T14:53:21Z",
@@ -135,7 +151,7 @@
             "abbreviatedOid": "36e18bd"
           },
           "author": "copilot-swe-agent",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-03T15:00:13Z",
@@ -155,7 +171,7 @@
             "abbreviatedOid": "36e18bd"
           },
           "author": "FelixKnopp",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "Vielen Dank, Stavros, dass du das Repository aufgesetzt hast und f\u00fcr all deine Erg\u00e4nzungen und Anpassungen! Ich habe nur noch ein paar kleinere Anmerkungen meinerseits. Die k\u00f6nnt ihr nat\u00fcrlich gerne verwerfen, wenn ihr anderer Meinung seid \u2013 mit einer Ausnahme: das Replacement der Mail \ud83d\ude09",
           "createdAt": "2026-11-03T16:01:55Z",
@@ -247,11 +263,11 @@
             "abbreviatedOid": "36e18bd"
           },
           "author": "FelixKnopp",
-          "authorAssociation": "NONE",
-          "state": "CHANGES_REQUESTED",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "DISMISSED",
           "body": "",
           "createdAt": "2026-11-03T18:58:46Z",
-          "updatedAt": "2026-11-03T19:53:22Z",
+          "updatedAt": "2026-11-10T10:22:35Z",
           "comments": [
             {
               "originalPosition": 33,
@@ -297,7 +313,7 @@
             "abbreviatedOid": "d278ef2"
           },
           "author": "github-actions",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-03T21:09:23Z",
@@ -317,7 +333,7 @@
             "abbreviatedOid": "c2b742b"
           },
           "author": "github-actions",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-03T21:10:52Z",
@@ -343,7 +359,7 @@
             "abbreviatedOid": "3d4de80"
           },
           "author": "github-actions",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-03T21:12:21Z",
@@ -363,7 +379,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "copilot-swe-agent",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-03T21:20:59Z",
@@ -383,7 +399,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "copilot-swe-agent",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-03T21:20:59Z",
@@ -403,7 +419,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "copilot-swe-agent",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-03T21:20:59Z",
@@ -423,7 +439,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "BashiriK",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-04T08:10:30Z",
@@ -443,7 +459,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "BashiriK",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-04T08:11:48Z",
@@ -463,7 +479,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "BashiriK",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-04T10:17:54Z",
@@ -483,7 +499,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "BashiriK",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-04T11:31:41Z",
@@ -503,7 +519,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "BashiriK",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-04T11:33:04Z",
@@ -523,7 +539,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "BashiriK",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-04T11:33:31Z",
@@ -543,7 +559,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "BashiriK",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-04T11:34:33Z",
@@ -563,7 +579,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "BashiriK",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-04T13:06:42Z",
@@ -583,7 +599,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "BashiriK",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-04T13:26:24Z",
@@ -603,7 +619,7 @@
             "abbreviatedOid": "c099002"
           },
           "author": "BashiriK",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "APPROVED",
           "body": "I have some minor comments, but, in general, I agree. ",
           "createdAt": "2026-11-04T13:26:59Z",
@@ -696,7 +712,7 @@
             "abbreviatedOid": "3d23ffc"
           },
           "author": "FelixKnopp",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-11-04T15:56:28Z",
@@ -813,6 +829,205 @@
               "body": "Applied in 0978b31",
               "createdAt": "2026-11-09T16:40:42Z",
               "updatedAt": "2026-11-09T16:40:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABW_gqbQ",
+          "commit": {
+            "abbreviatedOid": "ecbf699"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udfe1 Changes recommended\n\nThe draft permits bounded-use exceptions that conflict with the stated FIPS 205 restriction and omits caveats about provisional HashSLH-DSA-FEW identifiers and pre-hash pairings.\n\n<details open>\n<summary><strong>2 open issues</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Restore the provisional OID and identifier caveat](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4522016382) \u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Bounded-use exception relaxes the FIPS 205 key requirement](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4522016419) \u00b7 New\n</details>\n\n<details>\n<summary><strong>4 resolved since last review</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Describe security as no longer guaranteed beyond the 2^24 limit](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323425)\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Base key retirement on signature budget and enforce it for every copy](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323356)\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Prevent generated-file updates from overwriting the team rule](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323242)\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-light.png\" alt=\"Low severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Preserve wildcard markers in the rendered OID shorthand](https://github.com/spec-workbench/x509-slhdsa-fewsigs/pull/1#discussion_r4456323480)\n</details>\n\n<sub>Review effort: Max</sub>",
+          "createdAt": "2026-11-10T07:02:58Z",
+          "updatedAt": "2026-11-10T07:02:59Z",
+          "comments": [
+            {
+              "originalPosition": 177,
+              "body": "The PR description lists HashSLH-DSA-FEW support and NIST OIDs as an open issue, but the draft omits that caveat and presents the six identifiers and their pre-hash pairings without qualification. Restore an editor's note that the need for these identifiers, their NIST registration, and their names, count, and pairings remain provisional.",
+              "createdAt": "2026-11-10T07:02:58Z",
+              "updatedAt": "2026-11-10T07:02:59Z"
+            },
+            {
+              "originalPosition": 344,
+              "body": "The PR description says on-demand signing keys, including TLS and OCSP keys, MUST use FIPS 205 parameter sets. This exception instead allows SLH-DSA-FEW for those keys whenever the signature count can be bounded, which materially relaxes that requirement. Please either remove the exception to match the stated restriction or update the PR description to explicitly document the intended bounded-use exception.",
+              "createdAt": "2026-11-10T07:02:58Z",
+              "updatedAt": "2026-11-10T07:02:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABW2TfrQ",
+          "commit": {
+            "abbreviatedOid": "0d48bfa"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-11-09T15:38:20Z",
+          "updatedAt": "2026-11-10T09:09:01Z",
+          "comments": [
+            {
+              "originalPosition": 174,
+              "body": "```suggestion\n\n```",
+              "createdAt": "2026-11-09T15:38:20Z",
+              "updatedAt": "2026-11-10T09:09:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABXA74KA",
+          "commit": {
+            "abbreviatedOid": "0d48bfa"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-10T09:18:23Z",
+          "updatedAt": "2026-11-10T09:18:46Z",
+          "comments": [
+            {
+              "originalPosition": 341,
+              "body": "```suggestion\nThe Operational Considerations of {{SP800-230}} apply here. In particular, if an application's requirements or operational controls cannot guarantee that the 2^24 signatures limit will be respected, the parameter sets specified in this document must not be used.\n```",
+              "createdAt": "2026-11-10T09:18:23Z",
+              "updatedAt": "2026-11-10T09:23:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABXA-TjA",
+          "commit": {
+            "abbreviatedOid": "0d48bfa"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-10T09:21:40Z",
+          "updatedAt": "2026-11-10T09:21:40Z",
+          "comments": [
+            {
+              "originalPosition": 343,
+              "body": "```suggestion\nIn particular, SLH-DSA-FEW is not suited for keys that sign on demand in response to\n```",
+              "createdAt": "2026-11-10T09:21:40Z",
+              "updatedAt": "2026-11-10T09:21:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABXA_GLw",
+          "commit": {
+            "abbreviatedOid": "0d48bfa"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-10T09:22:48Z",
+          "updatedAt": "2026-11-10T09:22:48Z",
+          "comments": [
+            {
+              "originalPosition": 353,
+              "body": "```suggestion\nbelow. Moreover, the Security Considerations of {{SP800-230}} apply here.\n```",
+              "createdAt": "2026-11-10T09:22:48Z",
+              "updatedAt": "2026-11-10T09:22:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABXBBZuQ",
+          "commit": {
+            "abbreviatedOid": "0d48bfa"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-10T09:25:46Z",
+          "updatedAt": "2026-11-10T09:25:46Z",
+          "comments": [
+            {
+              "originalPosition": 357,
+              "body": "```suggestion\nIn particular, a key pair for an SLH-DSA-FEW parameter set MUST NOT\n```",
+              "createdAt": "2026-11-10T09:25:46Z",
+              "updatedAt": "2026-11-10T09:25:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABXBB0EQ",
+          "commit": {
+            "abbreviatedOid": "0d48bfa"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-10T09:26:18Z",
+          "updatedAt": "2026-11-10T09:26:18Z",
+          "comments": [
+            {
+              "originalPosition": 376,
+              "body": "```suggestion\n```",
+              "createdAt": "2026-11-10T09:26:18Z",
+              "updatedAt": "2026-11-10T09:26:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABXBDdgA",
+          "commit": {
+            "abbreviatedOid": "0d48bfa"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-10T09:28:26Z",
+          "updatedAt": "2026-11-10T09:28:27Z",
+          "comments": [
+            {
+              "originalPosition": 400,
+              "body": "```suggestion\n```",
+              "createdAt": "2026-11-10T09:28:27Z",
+              "updatedAt": "2026-11-10T09:28:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABXBEPYQ",
+          "commit": {
+            "abbreviatedOid": "0d48bfa"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "We did another review. Please, if you agree, @fluppe2 , approve the changes and merge as you wish. We = me and @FelixKnopp ",
+          "createdAt": "2026-11-10T09:29:21Z",
+          "updatedAt": "2026-11-10T09:29:52Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOVgM2N88AAAABXB54aQ",
+          "commit": {
+            "abbreviatedOid": "600cd68"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-10T10:38:45Z",
+          "updatedAt": "2026-11-10T10:38:46Z",
+          "comments": [
+            {
+              "originalPosition": 344,
+              "body": "The PR description was updated to match the text: SLH-DSA-FEW MUST NOT be used for on-demand keys unless the signature count can be bounded reliably, in line with SP 800-230 Section 3. The exception is intended.",
+              "createdAt": "2026-11-10T10:38:46Z",
+              "updatedAt": "2026-11-10T10:38:46Z"
             }
           ]
         }
